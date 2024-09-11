@@ -5,9 +5,22 @@ using namespace std;
 
 bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt){
         
-    // ESC key finished the rendering...
+    // ESC key finished the rendering... 
     if (evt.keysym.sym == SDLK_ESCAPE){
         getRoot()->queueEndRendering();
+    }
+    else if(evt.keysym.sym == SDLK_k){
+        cout << "Position of Sinbad: " << mSinbadNode->getPosition() << endl;
+        cout << "Position of the camera: " << mCamNode->getPosition() << endl;
+
+    }
+    else if (evt.keysym.sym == SDLK_l) {
+        mDragonNode->setVisible(false);
+        mDragonNode->showBoundingBox(false);
+    }
+    else if (evt.keysym.sym == SDLK_p) {
+        mDragonNode->setVisible(true);
+        mDragonNode->showBoundingBox(true);
     }
     
   return true;
@@ -76,7 +89,7 @@ void IG2App::setupScene(void){
     //------------------------------------------------------------------------
     // Creating the light
     
-    //mSM->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+    //mSM->setAmbientLight(ColourValue(0.5, 0.5, 0.5));บบ 
     Light* luz = mSM->createLight("Luz");
     luz->setType(Ogre::Light::LT_DIRECTIONAL);
     luz->setDiffuseColour(0.75, 0.75, 0.75);
@@ -99,13 +112,25 @@ void IG2App::setupScene(void){
     mSinbadNode->showBoundingBox(true);
     
     // Set position of Sinbad
-    //mSinbadNode->setPosition(x, y, z);
+    mSinbadNode->setPosition(0, 0, 0);
     
     // Set scale of Sinbad
     mSinbadNode->setScale(20, 20, 20);
     
     //mSinbadNode->yaw(Ogre::Degree(-45));
     //mSinbadNode->setVisible(false);    
+
+    //------------------------------------------------------------------------
+    // Creating Dragon
+
+    Ogre::Entity* nDragon = mSM->createEntity("dragon.mesh");
+    mDragonNode = mSM->getRootSceneNode()->createChildSceneNode("nDragon");
+    mDragonNode->attachObject(nDragon);
+
+    // Show bounding box
+    mDragonNode->showBoundingBox(true);
+
+    mDragonNode->setOrientation(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
 }
 
 
