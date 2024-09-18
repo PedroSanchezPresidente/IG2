@@ -32,6 +32,12 @@ protected:
     Ogre::SceneNode* mSnowmanNode = nullptr;
     Ogre::SceneNode* mSnowmanHeadNode = nullptr;
     Ogre::SceneNode* mSnowmanBodyNode = nullptr;
+    Ogre::SceneNode* mSnowmanNoseNode = nullptr;
+    Ogre::SceneNode* mSnowmanMouthNode = nullptr;
+    Ogre::SceneNode* mSnowmanRENode = nullptr;
+    Ogre::SceneNode* mSnowmanLENode = nullptr;
+    // Ombligo
+    Ogre::SceneNode* mSnowmanBBNode = nullptr;
       
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;
