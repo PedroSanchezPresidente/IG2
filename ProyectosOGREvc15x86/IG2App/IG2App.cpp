@@ -14,14 +14,6 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt){
         cout << "Position of the camera: " << mCamNode->getPosition() << endl;
 
     }
-    else if (evt.keysym.sym == SDLK_l) {
-        mDragonNode->setVisible(false);
-        mDragonNode->showBoundingBox(false);
-    }
-    else if (evt.keysym.sym == SDLK_p) {
-        mDragonNode->setVisible(true);
-        mDragonNode->showBoundingBox(true);
-    }
     
   return true;
 }
@@ -80,7 +72,8 @@ void IG2App::setupScene(void){
     
     // and tell it to render into the main window
     Viewport* vp = getRenderWindow()->addViewport(cam);
-    
+    vp->setBackgroundColour(Ogre::ColourValue(0.7, 0.8, 0.9));
+
     mCamMgr = new OgreBites::CameraMan(mCamNode);
     addInputListener(mCamMgr);
     mCamMgr->setStyle(OgreBites::CS_ORBIT);
@@ -89,7 +82,7 @@ void IG2App::setupScene(void){
     //------------------------------------------------------------------------
     // Creating the light
     
-    //mSM->setAmbientLight(ColourValue(0.5, 0.5, 0.5));บบ 
+    //mSM->setAmbientLight(ColourValue(0.5, 0.5, 0.5)); 
     Light* luz = mSM->createLight("Luz");
     luz->setType(Ogre::Light::LT_DIRECTIONAL);
     luz->setDiffuseColour(0.75, 0.75, 0.75);
@@ -101,36 +94,40 @@ void IG2App::setupScene(void){
     
 
     
-    //------------------------------------------------------------------------
-    // Creating Sinbad
+    ////------------------------------------------------------------------------
+    //// Creating Sinbad
 
-    Ogre::Entity* ent = mSM->createEntity("Sinbad.mesh");
-    mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
-    mSinbadNode->attachObject(ent);
+    //Ogre::Entity* ent = mSM->createEntity("Sinbad.mesh");
+    //mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
+    //mSinbadNode->attachObject(ent);
 
-    // Show bounding box
-    mSinbadNode->showBoundingBox(true);
+    //// Show bounding box
+    //mSinbadNode->showBoundingBox(true);
+    //
+    //// Set position of Sinbad
+    //mSinbadNode->setPosition(0, 20, 0);
+    //
+    //// Set scale of Sinbad
+    //mSinbadNode->setScale(20, 20, 20);
+    //
+    ////mSinbadNode->yaw(Ogre::Degree(-45));
+    ////mSinbadNode->setVisible(false); 
+    //
+    //// Creating bath
+
+    //Ogre::Entity* ent2 = mSM->createEntity("RomanBathLower.mesh");
+    //mBathNode = mSM->getRootSceneNode()->createChildSceneNode("nBath");
+    //mBathNode->attachObject(ent2);
+    //Ogre::Entity* ent3 = mSM->createEntity("RomanBathUpper.mesh");
+    //mBathNode->attachObject(ent3);
+
+    //Snowman
+    Ogre::Entity* ent = mSM->createEntity("sphere.mesh");
+    mSnowmanNode = mSM->getRootSceneNode()->createChildSceneNode("nSnowman");
+    mSnowmanHeadNode = mSM->getRootSceneNode()->createChildSceneNode("nSnowmanHead");
+    mSnowmanBodyNode = mSM->getRootSceneNode()->createChildSceneNode("nSnowmanBody");
     
-    // Set position of Sinbad
-    mSinbadNode->setPosition(0, 0, 0);
-    
-    // Set scale of Sinbad
-    mSinbadNode->setScale(20, 20, 20);
-    
-    //mSinbadNode->yaw(Ogre::Degree(-45));
-    //mSinbadNode->setVisible(false);    
-
-    //------------------------------------------------------------------------
-    // Creating Dragon
-
-    Ogre::Entity* nDragon = mSM->createEntity("dragon.mesh");
-    mDragonNode = mSM->getRootSceneNode()->createChildSceneNode("nDragon");
-    mDragonNode->attachObject(nDragon);
-
-    // Show bounding box
-    mDragonNode->showBoundingBox(true);
-
-    mDragonNode->setOrientation(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
+    mSnowmanHeadNode->attachObject(ent);
 }
 
 
