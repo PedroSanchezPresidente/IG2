@@ -13,6 +13,7 @@
 #include <sstream>
 #include <iostream>
 #include <string>
+#include "Labyrinth.h"
 
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener{
 
@@ -27,17 +28,17 @@ protected:
     virtual void setupScene();
     
     
-    Ogre::SceneNode* mSinbadNode = nullptr;
-    Ogre::SceneNode* mBathNode = nullptr;
-    Ogre::SceneNode* mSnowmanNode = nullptr;
-    Ogre::SceneNode* mSnowmanHeadNode = nullptr;
-    Ogre::SceneNode* mSnowmanBodyNode = nullptr;
-    Ogre::SceneNode* mSnowmanNoseNode = nullptr;
-    Ogre::SceneNode* mSnowmanMouthNode = nullptr;
-    Ogre::SceneNode* mSnowmanRENode = nullptr;
-    Ogre::SceneNode* mSnowmanLENode = nullptr;
-    // Ombligo
-    Ogre::SceneNode* mSnowmanBBNode = nullptr;
+    //Ogre::SceneNode* mSinbadNode = nullptr;
+    //Ogre::SceneNode* mBathNode = nullptr;
+    //Ogre::SceneNode* mSnowmanNode = nullptr;
+    //Ogre::SceneNode* mSnowmanHeadNode = nullptr;
+    //Ogre::SceneNode* mSnowmanBodyNode = nullptr;
+    //Ogre::SceneNode* mSnowmanNoseNode = nullptr;
+    //Ogre::SceneNode* mSnowmanMouthNode = nullptr;
+    //Ogre::SceneNode* mSnowmanRENode = nullptr;
+    //Ogre::SceneNode* mSnowmanLENode = nullptr;
+    //// Ombligo
+    //Ogre::SceneNode* mSnowmanBBNode = nullptr;
       
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;
@@ -48,6 +49,8 @@ protected:
     
     Ogre::SceneNode* mCamNode = nullptr;
     OgreBites::CameraMan* mCamMgr = nullptr;
+
+    Labyrinth* map = nullptr;
 };
 
 #endif

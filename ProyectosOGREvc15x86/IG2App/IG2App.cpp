@@ -9,23 +9,23 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt){
     if (evt.keysym.sym == SDLK_ESCAPE){
         getRoot()->queueEndRendering();
     }
-    else if(evt.keysym.sym == SDLK_k){
-        cout << "Position of Sinbad: " << mSinbadNode->getPosition() << endl;
-        cout << "Position of the camera: " << mCamNode->getPosition() << endl;
+    //else if(evt.keysym.sym == SDLK_k){
+    //    cout << "Position of Sinbad: " << mSinbadNode->getPosition() << endl;
+    //    cout << "Position of the camera: " << mCamNode->getPosition() << endl;
 
-    }
-    else if (evt.keysym.sym == SDLK_a) {
-        //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
-        mSnowmanNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
-    }
-    else if (evt.keysym.sym == SDLK_s) {
-        //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
-        mSnowmanHeadNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
-    }
-    else if (evt.keysym.sym == SDLK_d) {
-        //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
-        mSnowmanBodyNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
-    }
+    //}
+    //else if (evt.keysym.sym == SDLK_a) {
+    //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
+    //    mSnowmanNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
+    //}
+    //else if (evt.keysym.sym == SDLK_s) {
+    //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
+    //    mSnowmanHeadNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
+    //}
+    //else if (evt.keysym.sym == SDLK_d) {
+    //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
+    //    mSnowmanBodyNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
+    //}
     
   return true;
 }
@@ -79,7 +79,7 @@ void IG2App::setupScene(void){
     mCamNode = mSM->getRootSceneNode()->createChildSceneNode("nCam");
     mCamNode->attachObject(cam);
 
-    mCamNode->setPosition(0, 0, 1000);
+    mCamNode->setPosition(0, -1000, 1000);
     mCamNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
     
     // and tell it to render into the main window
@@ -102,10 +102,11 @@ void IG2App::setupScene(void){
     mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
     //mLightNode = mCamNode->createChildSceneNode("nLuz");
     mLightNode->attachObject(luz);
-    mLightNode->setDirection(Ogre::Vector3(0, 0, -1));
+    mLightNode->setDirection(Ogre::Vector3(-1, -1, -1));
     
 
-    
+#pragma region practica0
+
     ////------------------------------------------------------------------------
     //// Creating Sinbad
 
@@ -133,79 +134,83 @@ void IG2App::setupScene(void){
     Ogre::Entity* ent3 = mSM->createEntity("RomanBathUpper.mesh");
     mBathNode->attachObject(ent3);*/
 
-    //Snowman
-    //Ogre::Entity* ent = mSM->createEntity("sphere.mesh");
-    mSnowmanNode = mSM->getRootSceneNode()->createChildSceneNode("nSnowman");
-    // CABEZA
-    Ogre::Entity* headEnt = mSM->createEntity("sphere.mesh");
-    mSnowmanHeadNode = mSnowmanNode->createChildSceneNode("nSnowmanHead");
-    mSnowmanHeadNode->attachObject(headEnt);
-    mSnowmanHeadNode->showBoundingBox(true);
-    // CUERPO
-    Ogre::Entity* bodyEnt = mSM->createEntity("sphere.mesh");
-    mSnowmanBodyNode = mSnowmanNode->createChildSceneNode("nSnowmanBody");
-    mSnowmanBodyNode->attachObject(bodyEnt);
+    ////Snowman
+    ////Ogre::Entity* ent = mSM->createEntity("sphere.mesh");
+    //mSnowmanNode = mSM->getRootSceneNode()->createChildSceneNode("nSnowman");
+    //// CABEZA
+    //Ogre::Entity* headEnt = mSM->createEntity("sphere.mesh");
+    //mSnowmanHeadNode = mSnowmanNode->createChildSceneNode("nSnowmanHead");
+    //mSnowmanHeadNode->attachObject(headEnt);
+    //mSnowmanHeadNode->showBoundingBox(true);
+    //// CUERPO
+    //Ogre::Entity* bodyEnt = mSM->createEntity("sphere.mesh");
+    //mSnowmanBodyNode = mSnowmanNode->createChildSceneNode("nSnowmanBody");
+    //mSnowmanBodyNode->attachObject(bodyEnt);
 
-    mSnowmanHeadNode->scale(Ogre::Vector3(0.75, 0.75, 0.75));
-    mSnowmanHeadNode->translate(Ogre::Vector3(0.0, 160, 0.0));
+    //mSnowmanHeadNode->scale(Ogre::Vector3(0.75, 0.75, 0.75));
+    //mSnowmanHeadNode->translate(Ogre::Vector3(0.0, 160, 0.0));
 
 
-    // PARTES CABEZA
+    //// PARTES CABEZA
    
-    // =====================================
-    // BOCA
-    Ogre::Entity* mouthEnt = mSM->createEntity("sphere.mesh");
-    mSnowmanMouthNode = mSnowmanHeadNode->createChildSceneNode("nSnowmanMouth");
-    mSnowmanMouthNode->attachObject(mouthEnt);
+    //// =====================================
+    //// BOCA
+    //Ogre::Entity* mouthEnt = mSM->createEntity("sphere.mesh");
+    //mSnowmanMouthNode = mSnowmanHeadNode->createChildSceneNode("nSnowmanMouth");
+    //mSnowmanMouthNode->attachObject(mouthEnt);
 
-    mSnowmanMouthNode->scale(Ogre::Vector3(0.2, 0.10, 0.15));
-    mSnowmanMouthNode->translate(Ogre::Vector3(0, -30, 100 ));
-    // =====================================
-
-
-    // =====================================
-    // NARIZ
-    Ogre::Entity* noseEnt = mSM->createEntity("sphere.mesh");
-    mSnowmanNoseNode = mSnowmanHeadNode->createChildSceneNode("nSnowmanNose");
-    mSnowmanNoseNode->attachObject(noseEnt);
-
-    mSnowmanNoseNode->scale(Ogre::Vector3(0.1, 0.1, 0.1));
-    mSnowmanNoseNode->translate(Ogre::Vector3(0, 0, 100));
-    // =====================================
-
-    // =====================================
-    // OJO DERECHO
-    Ogre::Entity* reEnt = mSM->createEntity("sphere.mesh");
-    mSnowmanRENode = mSnowmanHeadNode->createChildSceneNode("nSnowmanRE");
-    mSnowmanRENode->attachObject(reEnt);
-
-    mSnowmanRENode->scale(Ogre::Vector3(0.1, 0.1, 0.1));
-    mSnowmanRENode->translate(Ogre::Vector3(30, 20, 100));
-    // =====================================
-
-    // =====================================
-    // OJO IZQUIERDO
-    Ogre::Entity* leEnt = mSM->createEntity("sphere.mesh"); 
-    mSnowmanLENode = mSnowmanHeadNode->createChildSceneNode("nSnowmanLE");
-    mSnowmanLENode->attachObject(leEnt);
-
-    mSnowmanLENode->scale(Ogre::Vector3(0.1, 0.1, 0.1));
-    mSnowmanLENode->translate(Ogre::Vector3(-30, 20, 100));
-    // =====================================
+    //mSnowmanMouthNode->scale(Ogre::Vector3(0.2, 0.10, 0.15));
+    //mSnowmanMouthNode->translate(Ogre::Vector3(0, -30, 100 ));
+    //// =====================================
 
 
-    // PARTES CUERPO
-    
-    // =====================================
-    // OMBLIGO
-    Ogre::Entity* bbEnt = mSM->createEntity("sphere.mesh");
-    mSnowmanBBNode = mSnowmanBodyNode->createChildSceneNode("nSnowmanBB");
-    mSnowmanBBNode->attachObject(bbEnt);
+    //// =====================================
+    //// NARIZ
+    //Ogre::Entity* noseEnt = mSM->createEntity("sphere.mesh");
+    //mSnowmanNoseNode = mSnowmanHeadNode->createChildSceneNode("nSnowmanNose");
+    //mSnowmanNoseNode->attachObject(noseEnt);
 
-    mSnowmanBBNode->scale(Ogre::Vector3(0.1, 0.1, 0.1));
-    mSnowmanBBNode->translate(Ogre::Vector3(0, 0, 100));
+    //mSnowmanNoseNode->scale(Ogre::Vector3(0.1, 0.1, 0.1));
+    //mSnowmanNoseNode->translate(Ogre::Vector3(0, 0, 100));
+    //// =====================================
+
+    //// =====================================
+    //// OJO DERECHO
+    //Ogre::Entity* reEnt = mSM->createEntity("sphere.mesh");
+    //mSnowmanRENode = mSnowmanHeadNode->createChildSceneNode("nSnowmanRE");
+    //mSnowmanRENode->attachObject(reEnt);
+
+    //mSnowmanRENode->scale(Ogre::Vector3(0.1, 0.1, 0.1));
+    //mSnowmanRENode->translate(Ogre::Vector3(30, 20, 100));
+    //// =====================================
+
+    //// =====================================
+    //// OJO IZQUIERDO
+    //Ogre::Entity* leEnt = mSM->createEntity("sphere.mesh"); 
+    //mSnowmanLENode = mSnowmanHeadNode->createChildSceneNode("nSnowmanLE");
+    //mSnowmanLENode->attachObject(leEnt);
+
+    //mSnowmanLENode->scale(Ogre::Vector3(0.1, 0.1, 0.1));
+    //mSnowmanLENode->translate(Ogre::Vector3(-30, 20, 100));
+    //// =====================================
 
 
+    //// PARTES CUERPO
+    //
+    //// =====================================
+    //// OMBLIGO
+    //Ogre::Entity* bbEnt = mSM->createEntity("sphere.mesh");
+    //mSnowmanBBNode = mSnowmanBodyNode->createChildSceneNode("nSnowmanBB");
+    //mSnowmanBBNode->attachObject(bbEnt);
+
+    //mSnowmanBBNode->scale(Ogre::Vector3(0.1, 0.1, 0.1));
+    //mSnowmanBBNode->translate(Ogre::Vector3(0, 0, 100));
+
+#pragma endregion
+
+    map =new Labyrinth("../stage1.txt", mSM);
 }
+
+
 
 
