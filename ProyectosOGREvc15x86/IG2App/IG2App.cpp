@@ -9,23 +9,27 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt){
     if (evt.keysym.sym == SDLK_ESCAPE){
         getRoot()->queueEndRendering();
     }
-    //else if(evt.keysym.sym == SDLK_k){
-    //    cout << "Position of Sinbad: " << mSinbadNode->getPosition() << endl;
-    //    cout << "Position of the camera: " << mCamNode->getPosition() << endl;
+    #pragma region Pruebas Snowman
 
-    //}
-    //else if (evt.keysym.sym == SDLK_a) {
-    //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
-    //    mSnowmanNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
-    //}
-    //else if (evt.keysym.sym == SDLK_s) {
-    //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
-    //    mSnowmanHeadNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
-    //}
-    //else if (evt.keysym.sym == SDLK_d) {
-    //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
-    //    mSnowmanBodyNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
-    //}
+
+        //else if(evt.keysym.sym == SDLK_k){
+        //    cout << "Position of Sinbad: " << mSinbadNode->getPosition() << endl;
+        //    cout << "Position of the camera: " << mCamNode->getPosition() << endl;
+
+        //}
+        //else if (evt.keysym.sym == SDLK_a) {
+        //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
+        //    mSnowmanNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
+        //}
+        //else if (evt.keysym.sym == SDLK_s) {
+        //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
+        //    mSnowmanHeadNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
+        //}
+        //else if (evt.keysym.sym == SDLK_d) {
+        //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
+        //    mSnowmanBodyNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
+        //}
+    #pragma endregion
     
   return true;
 }
@@ -128,12 +132,12 @@ void IG2App::setupScene(void){
     //
     //// Creating bath
 
-    /*Ogre::Entity* ent2 = mSM->createEntity("RomanBathLower.mesh");
+ /*   Ogre::Entity* ent2 = mSM->createEntity("RomanBathLower.mesh");
     mBathNode = mSM->getRootSceneNode()->createChildSceneNode("nBath");
     mBathNode->attachObject(ent2);
     Ogre::Entity* ent3 = mSM->createEntity("RomanBathUpper.mesh");
     mBathNode->attachObject(ent3);*/
-
+    
     ////Snowman
     ////Ogre::Entity* ent = mSM->createEntity("sphere.mesh");
     //mSnowmanNode = mSM->getRootSceneNode()->createChildSceneNode("nSnowman");

@@ -1,13 +1,14 @@
 #pragma once
 #include <vector>
-#include "IG2Object.h"
+#include "Muro.h"
+#include "Hueco.h"
 
 using namespace std;
 
 class Labyrinth {
 private:
 	std::vector<std::vector<IG2Object*>> map;
-    SceneNode* node;
+    SceneNode* node = nullptr;
     int tileHeight = 100, tileWidth = 100;
 
 public:
@@ -33,12 +34,11 @@ public:
                 SceneNode* n = node->createChildSceneNode();
 
                 if (c == 'x') {
-                    map[i][j] = new IG2Object(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "cube.mesh");
-                    map[i][j]->setScale(Vector3(1, 1, 1));
+                    map[i][j] = new Muro(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "cube.mesh");
+                    //map[i][j]->setMaterialName("egyptrockyfull");  ------ NO SE PUEDE SIN PONER EL .material y no está creado
                 }
                 else if (c == 'o') {
-                    map[i][j] = new IG2Object(Vector3(j* tileWidth, 0, i* tileHeight), n, mSM, "sphere.mesh");
-                    map[i][j]->setScale(Vector3(0.1,0.1,0.1));
+                    map[i][j] = new Hueco(Vector3(j* tileWidth, 0, i* tileHeight), n, mSM, "sphere.mesh");
                 }
             }
         }
@@ -53,5 +53,9 @@ public:
         }
 
         map.clear();
+    }
+
+    IG2Object* getTile(int i, int j) {
+        return map[i][j];
     }
 };
