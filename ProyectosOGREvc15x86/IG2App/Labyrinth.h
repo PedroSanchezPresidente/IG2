@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
-#include "Muro.h"
-#include "Hueco.h"
 #include "Heroe.h"
+#include "Tile.h"
 
 using namespace std;
 
@@ -36,11 +35,11 @@ public:
                 SceneNode* n = node->createChildSceneNode();
 
                 if (c == 'x') {
-                    map[i][j] = new Muro(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "cube.mesh");
+                    map[i][j] = new Tile(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "cube.mesh", false);
                     //map[i][j]->setMaterialName("egyptrockyfull");  ------ NO SE PUEDE SIN PONER EL .material y no está creado
                 }
                 else if (c == 'o') {
-                    map[i][j] = new Hueco(Vector3(j* tileWidth, 0, i* tileHeight), n, mSM, "sphere.mesh");
+                    map[i][j] = new Tile(Vector3(j* tileWidth, 0, i* tileHeight), n, mSM, "sphere.mesh", true, Vector3(0.1, 0.1, 0.1));
                 }
                 else if (c == 'h') {
                     map[i][j] = new Hueco(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "sphere.mesh");
