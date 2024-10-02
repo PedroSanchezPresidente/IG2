@@ -23,7 +23,7 @@ private:
     }
 
     void setCameraPosition(SceneNode* camNode) {
-        camNode->setPosition(center.x, 3000, center.z);
+        camNode->setPosition(center.x, 2300, center.z + 1000);
         camNode->lookAt(center, Ogre::Node::TS_WORLD);
     }
 public:
