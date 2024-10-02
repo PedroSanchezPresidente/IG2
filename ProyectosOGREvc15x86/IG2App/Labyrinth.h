@@ -8,7 +8,17 @@ class Labyrinth {
 private:
 	std::vector<std::vector<IG2Object*>> map;
     SceneNode* node = nullptr;
+    SceneNode* floorNode = nullptr;
+    IG2Object* floor = nullptr;
+    Vector3 center;
     int tileHeight = 100, tileWidth = 100;
+
+    void createFloor(SceneManager* mSM) {
+       floorNode = mSM->getRootSceneNode()->createChildSceneNode("floor");
+       floor = new IG2Object(Vector3(center.x, -tileHeight / 2, center.z), floorNode, mSM, "cube.mesh");
+       floor->setScale(Vector3(map.size(), 0.01, map[0].size()));
+       
+    }
 
 public:
     Labyrinth() {};
@@ -41,6 +51,13 @@ public:
                 }
             }
         }
+
+        center = Vector3((map.size() * tileHeight) / 2 - tileHeight / 2, 0 , (map[0].size() * tileWidth) / 2 - tileWidth / 2);
+
+        createFloor(mSM);
+
+        floor->setVisible(false);
+        
     }
 
     ~Labyrinth() {
