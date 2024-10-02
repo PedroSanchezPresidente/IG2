@@ -4,7 +4,12 @@ class Tile : public IG2Object {
 public:
 	SceneNode* tileNode = nullptr;
 
-	Tile(Vector3 initPos, SceneNode* node, SceneManager* sceneMng, String mesh, bool traspasable, const Vector3& scale = Vector3(1,1,1)) : IG2Object(initPos, node, sceneMng, mesh), traspasable_(traspasable) {
+	Tile(Vector3 initPos, SceneNode* node, SceneManager* sceneMng, bool traspasable = false, const Vector3& scale = Vector3(1, 1, 1)) : IG2Object(initPos, node, sceneMng), traspasable_(traspasable) {
+		//Inicializar la textura etc
+		setScale(scale);
+	}
+
+	Tile(Vector3 initPos, SceneNode* node, SceneManager* sceneMng, String mesh, bool traspasable = false, const Vector3& scale = Vector3(1,1,1)) : IG2Object(initPos, node, sceneMng, mesh), traspasable_(traspasable) {
 		//Inicializar la textura etc
 		setScale(scale);
 	}

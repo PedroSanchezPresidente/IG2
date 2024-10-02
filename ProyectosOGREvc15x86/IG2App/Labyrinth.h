@@ -55,9 +55,8 @@ public:
                     map[i][j] = new Tile(Vector3(j* tileWidth, 0, i* tileHeight), n, mSM, "sphere.mesh", true, Vector3(0.1, 0.1, 0.1));
                 }
                 else if (c == 'h') {
-                   /* map[i][j] = new Hueco(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "sphere.mesh");
+                   map[i][j] = new Tile(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, false);
                     heroe = new Heroe(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "Sinbad.mesh");
-                    IG2Object::addListener(heroe);*/
                 }
             }
         }
@@ -84,5 +83,9 @@ public:
 
     IG2Object* getTile(int i, int j) {
         return map[i][j];
+    }
+
+    Heroe* getHeroe() {
+        return heroe;
     }
 };

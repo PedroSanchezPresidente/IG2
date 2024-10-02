@@ -1,7 +1,7 @@
 #pragma once
 #include "IG2Object.h"
 #include "IG2ApplicationContext.h"
-class Heroe : public IG2Object, OgreBites::InputListener
+class Heroe : public IG2Object, public OgreBites::InputListener
 {
 public:
 	Heroe(Vector3 initPos, SceneNode* node, SceneManager* mSM, String mesh) : IG2Object(initPos, node, mSM, mesh){
@@ -9,6 +9,8 @@ public:
 		setScale(Vector3(10, 10, 10));
 	}
 
-	void keypressed(const OgreBites::KeyboardEvent& evt);
+	bool keypressed(const OgreBites::KeyboardEvent& evt);
+
+	
 };
 
