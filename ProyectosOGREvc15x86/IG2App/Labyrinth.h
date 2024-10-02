@@ -2,6 +2,7 @@
 #include <vector>
 #include "Muro.h"
 #include "Hueco.h"
+#include "Heroe.h"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ private:
 	std::vector<std::vector<IG2Object*>> map;
     SceneNode* node = nullptr;
     int tileHeight = 100, tileWidth = 100;
+    Heroe* heroe;
 
 public:
     Labyrinth() {};
@@ -39,6 +41,11 @@ public:
                 }
                 else if (c == 'o') {
                     map[i][j] = new Hueco(Vector3(j* tileWidth, 0, i* tileHeight), n, mSM, "sphere.mesh");
+                }
+                else if (c == 'h') {
+                    map[i][j] = new Hueco(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "sphere.mesh");
+                    heroe = new Heroe(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "Sinbad.mesh");
+                    IG2Object::addListener(heroe);
                 }
             }
         }
