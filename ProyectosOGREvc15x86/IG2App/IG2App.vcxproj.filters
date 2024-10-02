@@ -47,9 +47,6 @@
     <ClCompile Include="IG2Object.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Muro.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="Heroe.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
