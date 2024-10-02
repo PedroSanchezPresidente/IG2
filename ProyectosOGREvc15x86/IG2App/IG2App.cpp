@@ -181,6 +181,8 @@ void IG2App::setupScene(void){
 
     map = new Labyrinth("../stage1.txt", mSM,  mCamNode);
 
+    addInputListener(map->getHeroe());
+
     //addInputListener(map->getHeroe());
 }
 

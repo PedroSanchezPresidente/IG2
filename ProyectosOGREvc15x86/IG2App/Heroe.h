@@ -8,9 +8,7 @@ public:
 		// Set scale of Sinbad
 		setScale(Vector3(10, 10, 10));
 	}
-
-	bool keypressed(const OgreBites::KeyboardEvent& evt);
-
+	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
 	
 };
 

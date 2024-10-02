@@ -55,7 +55,7 @@ public:
                     map[i][j] = new Tile(Vector3(j* tileWidth, 0, i* tileHeight), n, mSM, "sphere.mesh", true, Vector3(0.1, 0.1, 0.1));
                 }
                 else if (c == 'h') {
-                   map[i][j] = new Tile(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, false);
+                   map[i][j] = new Tile(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM);
                     heroe = new Heroe(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "Sinbad.mesh");
                 }
             }
