@@ -12,23 +12,11 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt){
     #pragma region Pruebas Snowman
 
 
-        //else if(evt.keysym.sym == SDLK_k){
-        //    cout << "Position of Sinbad: " << mSinbadNode->getPosition() << endl;
-        //    cout << "Position of the camera: " << mCamNode->getPosition() << endl;
+    /*else if(evt.keysym.sym == SDLK_k){
+        cout << "Position of Sinbad: " << mSinbadNode->getPosition() << endl;
+        cout << "Position of the camera: " << mCamNode->getPosition() << endl;
 
-        //}
-        //else if (evt.keysym.sym == SDLK_a) {
-        //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
-        //    mSnowmanNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
-        //}
-        //else if (evt.keysym.sym == SDLK_s) {
-        //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
-        //    mSnowmanHeadNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
-        //}
-        //else if (evt.keysym.sym == SDLK_d) {
-        //    //mSnowmanNode->rotate(Ogre::Quaternion(0.0, 0.0, 180.0, 0.0));
-        //    mSnowmanBodyNode->translate(Ogre::Vector3(0.0, 200.0, 0.0));
-        //}
+    }*/
     #pragma endregion
     
   return true;
@@ -107,30 +95,9 @@ void IG2App::setupScene(void){
     //mLightNode = mCamNode->createChildSceneNode("nLuz");
     mLightNode->attachObject(luz);
     mLightNode->setDirection(Ogre::Vector3(-1, -1, -1));
-    
 
 #pragma region practica0
-
-    ////------------------------------------------------------------------------
-    //// Creating Sinbad
-
-    //Ogre::Entity* ent = mSM->createEntity("Sinbad.mesh");
-    //mSinbadNode = mSM->getRootSceneNode()->createChildSceneNode("nSinbad");
-    //mSinbadNode->attachObject(ent);
-
-    //// Show bounding box
-    //mSinbadNode->showBoundingBox(true);
-    //
-    //// Set position of Sinbad
-    //mSinbadNode->setPosition(0, 20, 0);
-    //
-    //// Set scale of Sinbad
-    //mSinbadNode->setScale(20, 20, 20);
-    //
-    ////mSinbadNode->yaw(Ogre::Degree(-45));
-    ////mSinbadNode->setVisible(false); 
-    //
-    //// Creating bath
+    // Creating bath
 
  /*   Ogre::Entity* ent2 = mSM->createEntity("RomanBathLower.mesh");
     mBathNode = mSM->getRootSceneNode()->createChildSceneNode("nBath");
