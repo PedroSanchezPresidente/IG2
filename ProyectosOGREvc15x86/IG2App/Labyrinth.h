@@ -7,7 +7,7 @@ using namespace std;
 
 class Labyrinth {
 private:
-	std::vector<std::vector<IG2Object*>> map;
+	std::vector<std::vector<Tile*>> map;
     SceneNode* node = nullptr;
     SceneNode* floorNode = nullptr;
     IG2Object* floor = nullptr;
@@ -55,8 +55,8 @@ public:
                     map[i][j] = new Tile(Vector3(j* tileWidth, 0, i* tileHeight), n, mSM, "sphere.mesh", true, Vector3(0.1, 0.1, 0.1));
                 }
                 else if (c == 'h') {
-                   map[i][j] = new Tile(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM);
-                    heroe = new Heroe(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "Sinbad.mesh");
+                   map[i][j] = new Tile(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, true);
+                    heroe = new Heroe(Vector2(i, j), n, mSM, "Sinbad.mesh", this, tileWidth);
                 }
             }
         }
@@ -83,7 +83,7 @@ public:
         map.clear();
     }
 
-    IG2Object* getTile(int i, int j) {
+    Tile* getTile(int i, int j) {
         return map[i][j];
     }
 
