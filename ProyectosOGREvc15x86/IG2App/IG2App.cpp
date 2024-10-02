@@ -179,7 +179,7 @@ void IG2App::setupScene(void){
 
 #pragma endregion
 
-    map =new Labyrinth("../stage1.txt", mSM);
+    map = new Labyrinth("../stage1.txt", mSM,  mCamNode);
 }
 
 
