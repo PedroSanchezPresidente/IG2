@@ -126,6 +126,13 @@ class IG2Object : public OgreBites::InputListener {
          */
         static void addListener(IG2Object* entidad){ appListeners.push_back(entidad); };
                     
+        /**
+        * Show the bounding box of the entity
+        * @param t boolean to show / unshow
+        */
+        void showBoundingBox(bool t) {
+            mNode->showBoundingBox(t);
+        }
     protected:
     
         // Scene node representing this element in the scene

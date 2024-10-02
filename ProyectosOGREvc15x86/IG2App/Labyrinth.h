@@ -68,6 +68,8 @@ public:
         floor->setVisible(false);
         
         setCameraPosition(camNode);
+
+        heroe->showBoundingBox(true);
     }
 
     ~Labyrinth() {
