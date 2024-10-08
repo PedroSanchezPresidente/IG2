@@ -19,7 +19,8 @@ private:
        floorNode = mSM->getRootSceneNode()->createChildSceneNode("floor");
        floor = new IG2Object(Vector3(center.x, -tileHeight / 2, center.z), floorNode, mSM, "cube.mesh");
        floor->setScale(Vector3(map.size(), 0.01, map[0].size()));
-       
+       //Cambiar el plano a la siguiente linea cuando lo demos en clase. (Da error porque no hay un grupo "Floor" en el ResourceManager)
+       //Ogre::MeshManager::getSingleton().createPlane("Floor", "Floor", *floor, map.size() * tileHeight, map[0].size() * tileWidth);
     }
 
     void setCameraPosition(SceneNode* camNode) {

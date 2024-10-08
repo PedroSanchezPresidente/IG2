@@ -30,6 +30,7 @@ void Heroe::frameRendered(const Ogre::FrameEvent& evt) {
     }
     else {
         if (newDir != dir && lab->getTile(actualPos.x + newDir.z, actualPos.y + newDir.x)->isTraspasable()) {
+            //Quaternion q = this.getOrientation()
             dir = newDir;
         }
         if (dir != Vector3::ZERO && lab->getTile(actualPos.x + dir.z, actualPos.y + dir.x)->isTraspasable()) {

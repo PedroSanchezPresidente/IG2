@@ -124,6 +124,7 @@
     <ClInclude Include="IG2ApplicationContext.h" />
     <ClInclude Include="IG2App.h" />
     <ClInclude Include="IG2Object.h" />
+    <ClInclude Include="InfoBox.h" />
     <ClInclude Include="Labyrinth.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
