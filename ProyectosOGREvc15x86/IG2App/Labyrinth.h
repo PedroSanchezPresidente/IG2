@@ -2,6 +2,9 @@
 #include <vector>
 #include "Heroe.h"
 #include "Tile.h"
+#include "Perla.h"
+#include "InfoBox.h"
+#include "Muro.h"
 
 using namespace std;
 
@@ -14,7 +17,7 @@ private:
     int tileHeight = 100, tileWidth = 100;
     int r, c;
     Heroe* heroe;
-
+    InfoBox* ib;
     void createFloor(SceneManager* mSM) {
        floorNode = mSM->getRootSceneNode()->createChildSceneNode("floor");
        Ogre::MeshManager::getSingleton().createPlane("Floor", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Plane(Vector3::UNIT_Y, -50), r * tileWidth, c * tileHeight, 100, 80, true, 1, 1.0, 1.0, Vector3::UNIT_Z);
@@ -30,7 +33,7 @@ private:
 public:
     Labyrinth() {};
 
-    Labyrinth(string routeName, SceneManager* mSM, SceneNode* camNode) {
+    Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager* tM, SceneNode* camNode) {
         ifstream file(routeName);
         if (!file)
             cout << "no se pudo abrir el archivo\n";
@@ -48,14 +51,14 @@ public:
                 SceneNode* n = node->createChildSceneNode();
 
                 if (c == 'x') {
-                    map[i][j] = new Tile(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "cube.mesh", false);
+                    map[i][j] = new Muro(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "cube.mesh", false);
                     //map[i][j]->setMaterialName("egyptrockyfull");  ------ NO SE PUEDE SIN PONER EL .material y no está creado
                 }
                 else if (c == 'o') {
-                    map[i][j] = new Tile(Vector3(j* tileWidth, 0, i* tileHeight), n, mSM, "sphere.mesh", true, Vector3(0.1, 0.1, 0.1));
+                    map[i][j] = new Perla(Vector3(j* tileWidth, 0, i* tileHeight), n, mSM, "sphere.mesh", 10, true, true, Vector3(0.1, 0.1, 0.1));
                 }
                 else if (c == 'h') {
-                   map[i][j] = new Tile(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, true);
+                   map[i][j] = new Perla(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM,0,false, true);
                     heroe = new Heroe(Vector2(i, j), n, mSM, "Sinbad.mesh", this, tileWidth);
                 }
             }
@@ -70,6 +73,8 @@ public:
         setCameraPosition(camNode);
 
         heroe->showBoundingBox(true);
+
+        ib = new InfoBox(tM);
     }
 
     ~Labyrinth() {
@@ -89,5 +94,9 @@ public:
 
     Heroe* getHeroe() {
         return heroe;
+    }
+
+    void addPoints(int p) {
+        ib->addPoints(p);
     }
 };

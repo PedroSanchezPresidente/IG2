@@ -22,6 +22,8 @@ public:
 		// Set scale of Sinbad
 		setScale(Vector3(10, 10, 10));
 	}
+
+	void addPoints(int p);
 	
 };
 

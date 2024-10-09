@@ -126,6 +126,8 @@
     <ClInclude Include="IG2Object.h" />
     <ClInclude Include="InfoBox.h" />
     <ClInclude Include="Labyrinth.h" />
+    <ClInclude Include="Muro.h" />
+    <ClInclude Include="Perla.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +137,8 @@
     <ClCompile Include="IG2Main.cpp" />
     <ClCompile Include="IG2App.cpp" />
     <ClCompile Include="IG2Object.cpp" />
+    <ClCompile Include="Muro.cpp" />
+    <ClCompile Include="Perla.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,21 +1,10 @@
 #pragma once
-#include "IG2Object.h"
-class Tile : public IG2Object {
+#include "Heroe.h"
+class Tile {
 public:
-	SceneNode* tileNode = nullptr;
-
-	Tile(Vector3 initPos, SceneNode* node, SceneManager* sceneMng, bool traspasable = false, const Vector3& scale = Vector3(1, 1, 1)) : IG2Object(initPos, node, sceneMng), traspasable_(traspasable) {
-		//Inicializar la textura etc
-		setScale(scale);
-	}
-
-	Tile(Vector3 initPos, SceneNode* node, SceneManager* sceneMng, String mesh, bool traspasable = false, const Vector3& scale = Vector3(1,1,1)) : IG2Object(initPos, node, sceneMng, mesh), traspasable_(traspasable) {
-		//Inicializar la textura etc
-		setScale(scale);
-	}
-
 	bool isTraspasable() { return traspasable_; }
-private:
+	virtual void interact(Heroe* h) = 0;
+protected:
 	bool traspasable_; 
 };
 

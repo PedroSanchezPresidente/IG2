@@ -14,7 +14,6 @@
 #include <iostream>
 #include <string>
 #include "Labyrinth.h"
-#include "InfoBox.h"
 
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener{
 
@@ -51,7 +50,6 @@ protected:
     OgreBites::CameraMan* mCamMgr = nullptr;
 
     Labyrinth* map = nullptr;
-    InfoBox* infoBox = nullptr;
 };
 
 #endif

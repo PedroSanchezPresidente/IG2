@@ -23,6 +23,8 @@ void Heroe::frameRendered(const Ogre::FrameEvent& evt) {
     if (distance > 0) {
         move(dir * speed);
         distance -= speed;
+        if (distance == 0)
+            lab->getTile(actualPos.x, actualPos.y)->interact(this);
     }
     else {
         if (newDir != dir && lab->getTile(actualPos.x + newDir.z, actualPos.y + newDir.x)->isTraspasable()) {
@@ -38,4 +40,9 @@ void Heroe::frameRendered(const Ogre::FrameEvent& evt) {
         else
             dir = Vector3::ZERO;
     }
+}
+
+void Heroe::addPoints(int p)
+{
+    lab->addPoints(p);
 }

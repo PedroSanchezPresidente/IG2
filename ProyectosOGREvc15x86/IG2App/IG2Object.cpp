@@ -100,7 +100,12 @@ Vector3 IG2Object::calculateBoxSize (){
     return result;
 }
 
-const AxisAlignedBox& IG2Object::getAABB(){    
+void IG2Object::setEntityVisible(bool visible)
+{
+    entity->setVisible(visible);
+}
+
+const AxisAlignedBox& IG2Object::getAABB(){
     return mNode->_getWorldAABB();
 }
 

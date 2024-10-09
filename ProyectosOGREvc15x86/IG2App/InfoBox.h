@@ -11,20 +11,25 @@ private:
 
 	OgreBites::TrayLocation BoxLocation = OgreBites::TrayLocation::TL_BOTTOMRIGHT;
 
+	int points = 0;
+	int lives = 3;
+	void updateTextBoxText() {
+		String s1 = "Lives: " + to_string(lives);
+		String s2 = "Points: " + to_string(points);
+		box->setText(s1 + "\n" + s2);
+	}
 public:
 	InfoBox(OgreBites::TrayManager* Mng) : mng(Mng){
 		label = mng->createLabel(BoxLocation, "Label", labelText, 300);
 		box = mng->createTextBox(BoxLocation, "TextBox", textBoxText, 300, 100);
-		box->setText("Lives: 1\nPoints: 280");
+		box->setText("Lives: " + to_string(lives) + "\nPoints: " + to_string(points));
 	}
 
 	void changeLevel(String s) {
 		labelText = "Stage: " + s;
 	}
-
-	void changeTextBoxText(int lives, int points) {
-		String s1 = "Lives: " + lives;
-		String s2 = "Points: " + points;
-		box->setText(s1 + "\n" + s2);
+	void addPoints(int p) {
+		points += p;
+		updateTextBoxText();
 	}
 };

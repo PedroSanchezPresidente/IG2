@@ -179,11 +179,9 @@ void IG2App::setupScene(void){
 
 #pragma endregion
 
-    map = new Labyrinth("../stage1.txt", mSM,  mCamNode);
+    map = new Labyrinth("../stage1.txt", mSM, mTrayMgr,  mCamNode);
 
     addInputListener(map->getHeroe());
-
-    infoBox = new InfoBox(mTrayMgr);
 }
 
 
