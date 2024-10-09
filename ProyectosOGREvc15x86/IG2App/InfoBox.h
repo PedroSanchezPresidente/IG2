@@ -13,8 +13,8 @@ private:
 
 public:
 	InfoBox(OgreBites::TrayManager* Mng) : mng(Mng){
-		label = mng->createLabel(BoxLocation, "Label", labelText, 200);
-		box = mng->createTextBox(BoxLocation, "TextBox", textBoxText, 200, 100);
+		label = mng->createLabel(BoxLocation, "Label", labelText, 300);
+		box = mng->createTextBox(BoxLocation, "TextBox", textBoxText, 300, 100);
 		box->setText("Lives: 1\nPoints: 280");
 	}
 
@@ -22,7 +22,9 @@ public:
 		labelText = "Stage: " + s;
 	}
 
-	void changeTextBoxText(String s) {
-		box->setText(s);
+	void changeTextBoxText(int lives, int points) {
+		String s1 = "Lives: " + lives;
+		String s2 = "Points: " + points;
+		box->setText(s1 + "\n" + s2);
 	}
 };

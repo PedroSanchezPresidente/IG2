@@ -10,17 +10,17 @@ private:
 	std::vector<std::vector<Tile*>> map;
     SceneNode* node = nullptr;
     SceneNode* floorNode = nullptr;
-    IG2Object* floor = nullptr;
     Vector3 center;
     int tileHeight = 100, tileWidth = 100;
+    int r, c;
     Heroe* heroe;
 
     void createFloor(SceneManager* mSM) {
        floorNode = mSM->getRootSceneNode()->createChildSceneNode("floor");
-       floor = new IG2Object(Vector3(center.x, -tileHeight / 2, center.z), floorNode, mSM, "cube.mesh");
-       floor->setScale(Vector3(map.size(), 0.01, map[0].size()));
-       //Cambiar el plano a la siguiente linea cuando lo demos en clase. (Da error porque no hay un grupo "Floor" en el ResourceManager)
-       //Ogre::MeshManager::getSingleton().createPlane("Floor", "Floor", *floor, map.size() * tileHeight, map[0].size() * tileWidth);
+       Ogre::MeshManager::getSingleton().createPlane("Floor", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Plane(Vector3::UNIT_Y, -50), r * tileWidth, c * tileHeight, 100, 80, true, 1, 1.0, 1.0, Vector3::UNIT_Z);
+       Ogre::Entity* plane = mSM->createEntity("Floor");
+       floorNode->attachObject(plane);
+       floorNode->setPosition(center);
     }
 
     void setCameraPosition(SceneNode* camNode) {
@@ -35,14 +35,13 @@ public:
         if (!file)
             cout << "no se pudo abrir el archivo\n";
 
-        int h, w;
         node = mSM->getRootSceneNode()->createChildSceneNode("map");
-        file >> h >> w;
-        map.resize(h);
+        file >> r >> c;
+        map.resize(r);
 
-        for (int i = 0; i < h; i++) {
-            map[i].resize(w);
-            for (int j = 0; j < w; j++) {
+        for (int i = 0; i < r; i++) {
+            map[i].resize(c);
+            for (int j = 0; j < c; j++) {
                 char c;
                 file >> c;
 
@@ -66,7 +65,7 @@ public:
 
         createFloor(mSM);
 
-        floor->setVisible(false);
+        floorNode->setVisible(false);
         
         setCameraPosition(camNode);
 
