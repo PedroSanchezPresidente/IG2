@@ -21,21 +21,24 @@ bool Heroe::keyPressed(const OgreBites::KeyboardEvent& evt) {
 
 void Heroe::frameRendered(const Ogre::FrameEvent& evt) {
     if (distance > 0) {
+        if (newDir == dir * -1) {
+            Quaternion q = getOrientation().getRotationTo(newDir);
+            mNode->rotate(q);
+            dir = newDir;
+            distance = tileWidth - distance;
+        }
         move(dir * speed);
         distance -= speed;
-        if (distance == 0)
-            lab->getTile(actualPos.x, actualPos.y)->interact(this);
+        lab->getTile(getPosition())->interact(this);
     }
     else {
-        if (newDir != dir && lab->getTile(actualPos.x + newDir.z, actualPos.y + newDir.x)->isTraspasable()) {
+        if (newDir != dir && lab->getTile(getPosition() + (newDir * tileWidth))->isTraspasable()) {
             Quaternion q = getOrientation().getRotationTo(newDir);
             dir = newDir;
             mNode->rotate(q);
         }
-        if (dir != Vector3::ZERO && lab->getTile(actualPos.x + dir.z, actualPos.y + dir.x)->isTraspasable()) {
+        if (dir != Vector3::ZERO && lab->getTile(getPosition() + (dir * tileWidth))->isTraspasable()) {
             distance = tileWidth;
-            actualPos.x += dir.z;
-            actualPos.y += dir.x;
         }
         else
             dir = Vector3::ZERO;

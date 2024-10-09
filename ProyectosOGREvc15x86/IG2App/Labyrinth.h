@@ -5,6 +5,7 @@
 #include "Perla.h"
 #include "InfoBox.h"
 #include "Muro.h"
+#include <cmath>
 
 using namespace std;
 
@@ -50,16 +51,21 @@ public:
 
                 SceneNode* n = node->createChildSceneNode();
 
+                int x, z;
+                x = j * tileWidth + tileWidth / 2;
+                z = i * tileHeight + tileHeight / 2;
+
                 if (c == 'x') {
-                    map[i][j] = new Muro(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM, "cube.mesh", false);
+                    map[i][j] = new Muro(Vector3(x, 0, z), n, mSM, false);
                     //map[i][j]->setMaterialName("egyptrockyfull");  ------ NO SE PUEDE SIN PONER EL .material y no está creado
                 }
                 else if (c == 'o') {
-                    map[i][j] = new Perla(Vector3(j* tileWidth, 0, i* tileHeight), n, mSM, "sphere.mesh", 10, true, true, Vector3(0.1, 0.1, 0.1));
+                    map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, 10, true, true, Vector3(0.1, 0.1, 0.1));
                 }
                 else if (c == 'h') {
-                   map[i][j] = new Perla(Vector3(j * tileWidth, 0, i * tileHeight), n, mSM,0,false, true);
-                    heroe = new Heroe(Vector2(i, j), n, mSM, "Sinbad.mesh", this, tileWidth);
+                   map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, 0,false, true);
+                   n = node->createChildSceneNode();
+                   heroe = new Heroe(Vector3(x, 0, z), n, mSM, "Sinbad.mesh", this, tileWidth);
                 }
             }
         }
@@ -88,8 +94,8 @@ public:
         map.clear();
     }
 
-    Tile* getTile(int i, int j) {
-        return map[i][j];
+    Tile* getTile(Vector3 pos) {
+        return map[pos.z / tileWidth][pos.x / tileHeight];
     }
 
     Heroe* getHeroe() {
