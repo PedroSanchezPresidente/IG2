@@ -28,7 +28,7 @@ void Heroe::frameRendered(const Ogre::FrameEvent& evt) {
         if (newDir != dir && lab->getTile(actualPos.x + newDir.z, actualPos.y + newDir.x)->isTraspasable()) {
             Quaternion q = getOrientation().getRotationTo(newDir);
             dir = newDir;
-            mNode->setOrientation(q);
+            mNode->rotate(q);
         }
         if (dir != Vector3::ZERO && lab->getTile(actualPos.x + dir.z, actualPos.y + dir.x)->isTraspasable()) {
             distance = tileWidth;
