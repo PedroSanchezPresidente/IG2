@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 #include "Labyrinth.h"
+#include "Helix.h"
 
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener{
 
@@ -38,6 +39,7 @@ protected:
     //Ogre::SceneNode* mSnowmanLENode = nullptr;
     //// Ombligo
     //Ogre::SceneNode* mSnowmanBBNode = nullptr;
+
       
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;
@@ -50,6 +52,7 @@ protected:
     OgreBites::CameraMan* mCamMgr = nullptr;
 
     Labyrinth* map = nullptr;
+    Helix* helix = nullptr;
 };
 
 #endif

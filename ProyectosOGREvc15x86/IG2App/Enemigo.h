@@ -17,9 +17,13 @@ protected:
 	virtual void frameRendered(const Ogre::FrameEvent& evt);
 
 public:
-	Enemigo(Vector2 initPos, SceneNode* node, SceneManager* mSM, String mesh, Labyrinth* Lab, int TileWidth) : IG2Object(Vector3(initPos.y* TileWidth, 0, initPos.x* TileWidth), node, mSM, mesh), lab(Lab), tileWidth(TileWidth), actualPos(initPos), distance(0) {
+	Enemigo(Vector2 initPos, SceneNode* node, SceneManager* mSM, Labyrinth* Lab, int TileWidth) : IG2Object(Vector3(initPos.y* TileWidth, 0, initPos.x* TileWidth), node, mSM), lab(Lab), tileWidth(TileWidth), actualPos(initPos), distance(0) {
 		// Set scale of Sinbad
 		setScale(Vector3(10, 10, 10));
+	}
+
+	void buildVillano(SceneNode* vNode) {
+
 	}
 
 };

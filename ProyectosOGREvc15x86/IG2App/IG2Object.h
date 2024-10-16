@@ -138,6 +138,14 @@ class IG2Object : public OgreBites::InputListener {
         void showBoundingBox(bool t) {
             mNode->showBoundingBox(t);
         }
+
+        /**
+        * Call to node method rotate
+        * @param q Quaternion that defines the rotations
+        */
+        void rotate(Quaternion q) {
+            mNode->rotate(q);
+        }
     protected:
     
         // Scene node representing this element in the scene
