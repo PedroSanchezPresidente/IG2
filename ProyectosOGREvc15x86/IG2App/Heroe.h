@@ -1,23 +1,15 @@
 #pragma once
-#include "IG2Object.h"
+#include "Character.h"
 
-class Labyrinth;
-
-class Heroe : public IG2Object
+class Heroe : public Character
 {
 protected:
-	Labyrinth* lab; 
-	int tileWidth;
-	int distance;
-	Vector3 dir = Vector3(0,0,0);
-	Vector3 newDir = Vector3(0, 0, 0);
-	int speed = 2;
-
 	virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);
+	virtual bool keyReleased(const OgreBites::KeyboardEvent& evt);
 	virtual void frameRendered(const Ogre::FrameEvent& evt);
 
 public:
-	Heroe(Vector3 v, SceneNode* node, SceneManager* mSM, String mesh, Labyrinth* Lab, int TileWidth) : IG2Object(v, node, mSM, mesh), lab(Lab), tileWidth(TileWidth), distance(0) {
+	Heroe(Vector3 v, SceneNode* node, SceneManager* mSM, String mesh, Labyrinth* Lab, int TileWidth) : Character(v, node, mSM, mesh, Lab, TileWidth) {
 		// Set scale of Sinbad
 		setScale(Vector3(10, 10, 10));
 	}
