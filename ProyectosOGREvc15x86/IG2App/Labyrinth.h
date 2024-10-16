@@ -21,7 +21,7 @@ private:
     InfoBox* ib;
     void createFloor(SceneManager* mSM) {
        floorNode = mSM->getRootSceneNode()->createChildSceneNode("floor");
-       Ogre::MeshManager::getSingleton().createPlane("Floor", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Plane(Vector3::UNIT_Y, -50), r * tileWidth, c * tileHeight, 100, 80, true, 1, 1.0, 1.0, Vector3::UNIT_Z);
+       Ogre::MeshManager::getSingleton().createPlane("Floor", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Plane(Vector3::UNIT_Y, -50), r * tileWidth - tileWidth, c * tileHeight - tileHeight, 100, 80, true, 1, 1.0, 1.0, Vector3::UNIT_Z);
        Ogre::Entity* plane = mSM->createEntity("Floor");
        floorNode->attachObject(plane);
        floorNode->setPosition(center);
@@ -74,7 +74,7 @@ public:
 
         createFloor(mSM);
 
-        floorNode->setVisible(false);
+        floorNode->setVisible(true);
         
         setCameraPosition(camNode);
 
