@@ -23,6 +23,7 @@ private:
        floorNode = mSM->getRootSceneNode()->createChildSceneNode("floor");
        Ogre::MeshManager::getSingleton().createPlane("Floor", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Plane(Vector3::UNIT_Y, -50), r * tileWidth - tileWidth, c * tileHeight - tileHeight, 100, 80, true, 1, 1.0, 1.0, Vector3::UNIT_Z);
        Ogre::Entity* plane = mSM->createEntity("Floor");
+       plane->setMaterialName("FloorMaterial");
        floorNode->attachObject(plane);
        floorNode->setPosition(center);
     }
@@ -57,7 +58,6 @@ public:
 
                 if (c == 'x') {
                     map[i][j] = new Muro(Vector3(x, 0, z), n, mSM, false);
-                    //map[i][j]->setMaterialName("egyptrockyfull");  ------ NO SE PUEDE SIN PONER EL .material y no está creado
                 }
                 else if (c == 'o') {
                     map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, 10, true, true, Vector3(0.1, 0.1, 0.1));
@@ -73,8 +73,6 @@ public:
         center = Vector3((map.size() * tileHeight) / 2 - tileHeight / 2, 0 , (map[0].size() * tileWidth) / 2 - tileWidth / 2);
 
         createFloor(mSM);
-
-        floorNode->setVisible(true);
         
         setCameraPosition(camNode);
 
