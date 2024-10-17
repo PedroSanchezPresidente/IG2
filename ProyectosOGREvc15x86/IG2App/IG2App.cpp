@@ -92,8 +92,8 @@ void IG2App::setupScene(void){
     addInputListener(map->getHeroe());*/
     
 
-    helix = new Helix(Vector3(0, 0, 0), mSM, mSM->getRootSceneNode(), 10, "helice1");
-
+    helix = new Helix(Vector3(0, 0, 0), mSM, mSM->getRootSceneNode(), 4, "helice1");
+    body = new Body(Vector3(0, -(PALE_HEIGHT + BODYPART_HEIGHT + BODYPART_HEIGHT / 2), 0), mSM, mSM->getRootSceneNode(), "body");
 }
 
 

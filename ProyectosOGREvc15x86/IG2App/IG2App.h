@@ -15,6 +15,7 @@
 #include <string>
 #include "Labyrinth.h"
 #include "Helix.h"
+#include "Body.h"
 
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener{
 
@@ -53,6 +54,7 @@ protected:
 
     Labyrinth* map = nullptr;
     Helix* helix = nullptr;
+    Body* body = nullptr;
 };
 
 #endif

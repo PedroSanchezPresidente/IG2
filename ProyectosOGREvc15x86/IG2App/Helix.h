@@ -23,13 +23,13 @@ private:
 				center.z + offset * Math::Cos(angle) 
 			};
 
-			// Crear la pala y ajustarla
+			
 			Pale* pale = new Pale(palePos, sm, mNode, i);
 			Quaternion rotation;
-			rotation.FromAngleAxis(Radian(angle), Vector3::UNIT_Y); // Rotar alrededor del eje Y
-			// Si se les quiere dar una rotacion especial tipo shuriken
+			rotation.FromAngleAxis(Radian(angle), Vector3::UNIT_Y);
 			rotation = rotation * Quaternion(Radian(-90), Vector3::UNIT_Y);
 			pale->rotate(rotation); 
+
 			pList.push_back(pale);
 		}
 	}
@@ -50,5 +50,11 @@ public:
 			throw std::invalid_argument("El número de palas debe ser mayor que cero.");
 		}
 		createPales(sM);
+
+		setScale(Vector3(0.3, 0.3, 0.3));
+	}
+	
+	void helixRotation(Ogre::Degree g) {
+		mNode->yaw(g);
 	}
 };

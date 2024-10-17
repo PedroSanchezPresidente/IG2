@@ -1,5 +1,6 @@
 #pragma once
 #include "IG2Object.h"
+#include "Helix.h"
 
 class Labyrinth;
 
@@ -13,6 +14,8 @@ protected:
 	Vector3 newDir = Vector3(0, 0, 0);
 	Vector2 actualPos;
 	int speed = 10;
+
+	Helix* helix = nullptr;
 
 	virtual void frameRendered(const Ogre::FrameEvent& evt);
 

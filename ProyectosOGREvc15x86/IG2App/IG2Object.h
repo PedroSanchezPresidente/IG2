@@ -146,6 +146,10 @@ class IG2Object : public OgreBites::InputListener {
         void rotate(Quaternion q) {
             mNode->rotate(q);
         }
+
+        void yaw(Ogre::Degree d) {
+            mNode->yaw(d);
+        }
     protected:
     
         // Scene node representing this element in the scene

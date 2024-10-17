@@ -7,9 +7,9 @@ const struct pale_params {
 	float z = 15.0f;
 };
 
+const float PALE_HEIGHT = 4.5f;
+
 class Pale : public IG2Object {
-private:
-	const float scale = 0.3f;
 public:
 	Pale(Vector3 initPos, SceneManager* sM, SceneNode* parentNode, int index) 
 		: IG2Object(initPos, parentNode->createChildSceneNode("pale" + to_string(index)), sM, "cube.mesh")

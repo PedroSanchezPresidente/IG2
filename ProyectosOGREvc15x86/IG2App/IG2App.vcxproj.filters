@@ -47,11 +47,14 @@
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>Archivos de encabezado</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="Pale.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Helix.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Body.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
