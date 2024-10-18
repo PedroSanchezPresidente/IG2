@@ -133,6 +133,7 @@
     <ClInclude Include="Pale.h" />
     <ClInclude Include="Perla.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="Wheels.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Character.cpp" />

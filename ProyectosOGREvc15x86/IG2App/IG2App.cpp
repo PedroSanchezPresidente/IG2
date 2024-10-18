@@ -94,6 +94,7 @@ void IG2App::setupScene(void){
 
     helix = new Helix(Vector3(0, 0, 0), mSM, mSM->getRootSceneNode(), 4, "helice1");
     body = new Body(Vector3(0, -(PALE_HEIGHT + BODYPART_HEIGHT + BODYPART_HEIGHT / 2), 0), mSM, mSM->getRootSceneNode(), "body");
+    wheels = new Wheels(Vector3(0, -(PALE_HEIGHT + 3 * BODYPART_HEIGHT), 0), mSM, mSM->getRootSceneNode(), 4,  "wheels");
 }
 
 
