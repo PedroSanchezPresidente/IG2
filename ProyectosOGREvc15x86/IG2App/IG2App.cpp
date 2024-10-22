@@ -93,6 +93,11 @@ void IG2App::setupScene(void){
 
 
     enemy = new Enemigo(Vector2(0, 0), mSM->getRootSceneNode(), mSM);
+    enemy->setScale(Vector3(0.5, 0.5, 0.5));
+    enemy->move(Vector3(0, 200, 0));
+    auto pos = enemy->getPosition();
+    cout << "POSICION ENEMIGO: " << pos.x << ", " << pos.y << ", " << pos.z << endl;
+    enemy->debugPositions();
     addInputListener(enemy);
     
 

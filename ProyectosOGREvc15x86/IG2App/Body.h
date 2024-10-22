@@ -2,7 +2,7 @@
 #include "IG2Object.h"
 
 const float BODYPART_HEIGHT = 50.0f;
-class Body{
+class Body : public IG2Object {
 private:
 	SceneNode* bNode = nullptr;
 
@@ -14,17 +14,20 @@ private:
 	const Vector3 columnScale = {2.8, (Ogre::Real)(0.23 * heightFact), 2.8};
 
 	Ogre::Degree rotation_fact;
+
+	Vector3 center; 
 	
 public:
-	Body(Vector3 midPos, SceneManager* sm, SceneNode* parentNode, string nodeName, float rot) {
-
-		bNode = parentNode->createChildSceneNode(nodeName);
+	Body(Vector3 midPos, SceneManager* sm, SceneNode* parentNode, string nodeName, float rot) :
+	IG2Object(midPos, parentNode->createChildSceneNode("nodeName"), sm)
+	{
+		center = midPos;
 		rotation_fact = Ogre::Degree(rot);
-		top = new IG2Object(midPos + Vector3(0, BODYPART_HEIGHT - (BODYPART_HEIGHT / 4), -BODYPART_HEIGHT / 2), bNode->createChildSceneNode("bodytop"), sm, "column.mesh");
+		top = new IG2Object(midPos + Vector3(0, BODYPART_HEIGHT - (BODYPART_HEIGHT / 4), -BODYPART_HEIGHT / 2), mNode->createChildSceneNode("bodytop"), sm, "column.mesh");
 		top->setScale(columnScale);
-		mid = new IG2Object(midPos, bNode->createChildSceneNode("bodymid"), sm, "cube.mesh");
+		mid = new IG2Object(midPos, mNode->createChildSceneNode("bodymid"), sm, "cube.mesh");
 		mid->setScale(Vector3(1, heightFact, 1));
-		bot = new IG2Object(midPos - Vector3(0, BODYPART_HEIGHT + (BODYPART_HEIGHT / 4), +BODYPART_HEIGHT / 2), bNode->createChildSceneNode("bodybot"), sm, "column.mesh");
+		bot = new IG2Object(midPos - Vector3(0, BODYPART_HEIGHT + (BODYPART_HEIGHT / 4), +BODYPART_HEIGHT / 2), mNode->createChildSceneNode("bodybot"), sm, "column.mesh");
 		bot->setScale(columnScale);
 	}
 
@@ -41,5 +44,9 @@ public:
 
 	void update() {
 		mid->yaw(rotation_fact);
+	}
+
+	Vector3 getPosition() const {
+		return center;
 	}
 };

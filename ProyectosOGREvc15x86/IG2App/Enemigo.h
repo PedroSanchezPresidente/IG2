@@ -38,5 +38,17 @@ public:
 		wheels = new Wheels(Vector3(0, -(PALE_HEIGHT + 1.5 * BODYPART_HEIGHT), 0), mSM, mNode, 4, "wheels", WHEELS_ROT);
 	}
 
+	void debugPositions() {
+		auto pos = wheels->getPosition();
+		cout << "POSICION RUEDAS: " << pos.x << ", " << pos.y << ", " << pos.z << endl;
+		wheels->showBoundingBox(true);
+		auto pos1 = body->getPosition();
+		cout << "POSICION CUERPO: " << pos1.x << ", " << pos1.y << ", " << pos1.z << endl;
+
+		auto pos2 = helix->getPosition();
+		cout << "POSICION HELICES: " << pos2.x << ", " << pos2.y << ", " << pos2.z << endl;
+		helix->showBoundingBox(true);
+
+	}
 };
 
