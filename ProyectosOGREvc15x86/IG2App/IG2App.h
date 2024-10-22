@@ -14,9 +14,7 @@
 #include <iostream>
 #include <string>
 #include "Labyrinth.h"
-#include "Helix.h"
-#include "Body.h"
-#include "Wheels.h"
+#include "Enemigo.h"
 
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener{
 
@@ -54,9 +52,7 @@ protected:
     OgreBites::CameraMan* mCamMgr = nullptr;
 
     Labyrinth* map = nullptr;
-    Helix* helix = nullptr;
-    Body* body = nullptr;
-    Wheels* wheels = nullptr;
+    Enemigo* enemy = nullptr;
 };
 
 #endif

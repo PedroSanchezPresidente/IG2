@@ -7,6 +7,7 @@ class Helix : public IG2Object {
 private:
 	// Numero de palas
 	int num;
+	Ogre::Degree rotation_fact;
 	// Vector que almacena las palas que se necesitan
 	std::vector<Pale*> pList;
 	
@@ -42,9 +43,9 @@ public:
 	* @param numPales
 	* @param nodeName
 	*/
-	Helix(Vector3 initPos, SceneManager* sM, SceneNode* parentNode, int numPales, string nodeName)
+	Helix(Vector3 initPos, SceneManager* sM, SceneNode* parentNode, int numPales, string nodeName, float rot)
 		: IG2Object(initPos, parentNode->createChildSceneNode(nodeName), sM), 
-		num(numPales), pList(numPales, nullptr) {
+		num(numPales), pList(numPales, nullptr), rotation_fact(Ogre::Degree(rot)) {
 
 		if (numPales <= 0) {
 			throw std::invalid_argument("El número de palas debe ser mayor que cero.");
@@ -53,8 +54,14 @@ public:
 
 		setScale(Vector3(0.3, 0.3, 0.3));
 	}
-	
-	void helixRotation(Ogre::Degree g) {
-		mNode->yaw(g);
+	~Helix() {
+		for (auto p : pList) {
+			delete p;
+			p = nullptr;
+		}
+	}
+
+	void update() {
+		mNode->yaw(rotation_fact);
 	}
 };
