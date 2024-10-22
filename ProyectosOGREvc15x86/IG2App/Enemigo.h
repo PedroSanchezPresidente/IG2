@@ -33,9 +33,14 @@ public:
 	}
 
 	void buildVillano() {
-		helix = new Helix(Vector3(0, 0, 0), mSM, mNode, 5, "helice1", HELIX_ROT);
-		body = new Body(Vector3(0, -(PALE_HEIGHT + BODYPART_HEIGHT + BODYPART_HEIGHT / 2), 0), mSM, mNode, "body", BODY_ROT);
-		wheels = new Wheels(Vector3(0, -(PALE_HEIGHT + 1.5 * BODYPART_HEIGHT), 0), mSM, mNode, 4, "wheels", WHEELS_ROT);
+		Vector3 pos = getPosition();
+		Vector3 bodyMid(0, (CUBE_SIZE * MID_SCALE.y)  / 2 + CUBE_SIZE * TOP_SCALE.y / 2, 0);
+		Vector3 bP = pos + bodyMid ;
+		Vector3 hP = bP + bodyMid +  Vector3(0 ,CUBE_SIZE * MID_SCALE.y +  CUBE_SIZE * PALE_SCALE.y * HELIX_SCALE.y, 0);
+
+		helix = new Helix(hP, mSM, mNode, 5, "helice1", HELIX_ROT);
+		body = new Body(bP, mSM, mNode, "body", BODY_ROT);
+		wheels = new Wheels(pos , mSM, mNode, 4, "wheels", WHEELS_ROT);
 	}
 
 	void debugPositions() {
@@ -44,7 +49,7 @@ public:
 		wheels->showBoundingBox(true);
 		auto pos1 = body->getPosition();
 		cout << "POSICION CUERPO: " << pos1.x << ", " << pos1.y << ", " << pos1.z << endl;
-
+		body->showBoundingBox(true);
 		auto pos2 = helix->getPosition();
 		cout << "POSICION HELICES: " << pos2.x << ", " << pos2.y << ", " << pos2.z << endl;
 		helix->showBoundingBox(true);

@@ -1,52 +1,50 @@
 #pragma once
 #include "IG2Object.h"
 
-const float BODYPART_HEIGHT = 50.0f;
+const float CUBE_SIZE = 100.0f;
+const Vector3 TOP_SCALE = { 1, 0.5, 1 };
+const Vector3 MID_SCALE = { 1, 0.25, 1 };
+
 class Body : public IG2Object {
 private:
-	SceneNode* bNode = nullptr;
 
 	IG2Object* top = nullptr;
 	IG2Object* mid = nullptr;
 	IG2Object* bot = nullptr;
 
 	const float heightFact = 0.5;
-	const Vector3 columnScale = {2.8, (Ogre::Real)(0.23 * heightFact), 2.8};
 
 	Ogre::Degree rotation_fact;
-
-	Vector3 center; 
 	
 public:
 	Body(Vector3 midPos, SceneManager* sm, SceneNode* parentNode, string nodeName, float rot) :
 	IG2Object(midPos, parentNode->createChildSceneNode("nodeName"), sm)
 	{
-		center = midPos;
 		rotation_fact = Ogre::Degree(rot);
-		top = new IG2Object(midPos + Vector3(0, BODYPART_HEIGHT - (BODYPART_HEIGHT / 4), -BODYPART_HEIGHT / 2), mNode->createChildSceneNode("bodytop"), sm, "column.mesh");
-		top->setScale(columnScale);
+		float mid_size = CUBE_SIZE * MID_SCALE.y; 
+		float top_size = CUBE_SIZE * TOP_SCALE.y; 
+		Vector3 offset(0, mid_size / 2 + top_size / 2, 0);
+
+		top = new IG2Object(midPos + offset, mNode->createChildSceneNode("bodytop"), sm, "cube.mesh");
+		top->setScale(TOP_SCALE);
 		mid = new IG2Object(midPos, mNode->createChildSceneNode("bodymid"), sm, "cube.mesh");
-		mid->setScale(Vector3(1, heightFact, 1));
-		bot = new IG2Object(midPos - Vector3(0, BODYPART_HEIGHT + (BODYPART_HEIGHT / 4), +BODYPART_HEIGHT / 2), mNode->createChildSceneNode("bodybot"), sm, "column.mesh");
-		bot->setScale(columnScale);
+		mid->setScale(MID_SCALE);
+		bot = new IG2Object(midPos - offset, mNode->createChildSceneNode("bodybot"), sm, "cube.mesh");
+		bot->setScale(TOP_SCALE);
 	}
 
 	~Body() {
-		delete top;
-		delete mid;
-		delete bot;
-		delete bNode;
-		top = nullptr;
-		mid = nullptr;
-		bot = nullptr;
-		bNode = nullptr;
+		if (top != nullptr && mid != nullptr && bot != nullptr) {
+			delete top;
+			delete mid;
+			delete bot;
+			top = nullptr;
+			mid = nullptr;
+			bot = nullptr;
+		}
 	}
 
 	void update() {
 		mid->yaw(rotation_fact);
-	}
-
-	Vector3 getPosition() const {
-		return center;
 	}
 };

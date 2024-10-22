@@ -87,20 +87,16 @@ void IG2App::setupScene(void){
     mLightNode->attachObject(luz);
     mLightNode->setDirection(Ogre::Vector3(-1, -1, -1));
 
-    map = new Labyrinth("../stage1.txt", mSM, mTrayMgr,  mCamNode);
+    /*map = new Labyrinth("../stage1.txt", mSM, mTrayMgr,  mCamNode);
 
-    addInputListener(map->getHeroe());
+    addInputListener(map->getHeroe());*/
 
 
-    enemy = new Enemigo(Vector2(0, 0), mSM->getRootSceneNode(), mSM);
-    enemy->setScale(Vector3(0.5, 0.5, 0.5));
-    enemy->move(Vector3(0, 200, 0));
+    enemy = new Enemigo(Vector2(0, 0), mSM->getRootSceneNode()->createChildSceneNode("enemigo1"), mSM);
+    
     auto pos = enemy->getPosition();
     cout << "POSICION ENEMIGO: " << pos.x << ", " << pos.y << ", " << pos.z << endl;
-    enemy->debugPositions();
     addInputListener(enemy);
-    
-
    
 }
 

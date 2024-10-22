@@ -3,6 +3,9 @@
 #include "Pale.h"
 #include "OgreMath.h"
 #include <vector>
+
+const Vector3 HELIX_SCALE = { 0.3, 0.3, 0.3 };
+
 class Helix : public IG2Object {
 private:
 	// Numero de palas
@@ -52,7 +55,7 @@ public:
 		}
 		createPales(sM);
 
-		setScale(Vector3(0.3, 0.3, 0.3));
+		setScale(HELIX_SCALE);
 	}
 	~Helix() {
 		for (auto p : pList) {

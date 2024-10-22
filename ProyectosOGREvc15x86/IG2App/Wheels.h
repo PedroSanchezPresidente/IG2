@@ -1,5 +1,8 @@
 #pragma once
 #include "IG2Object.h"
+
+const float WHEEL_SIZE = 20;
+const Vector3 WHEEL_SCALE = { 0.2, 0.2, 0.2 };
 class Wheels : public IG2Object {
 private:
 	int num; 
@@ -20,7 +23,7 @@ private:
 			};
 
 			IG2Object* wheel = new IG2Object(wPos, mNode->createChildSceneNode("wheel_" + to_string(i)), sm, "sphere.mesh");
-			wheel->setScale(Vector3(0.2, 0.2, 0.2));
+			wheel->setScale(WHEEL_SCALE);
 			wList.push_back(wheel);
 		}
 	}
