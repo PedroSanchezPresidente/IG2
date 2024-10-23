@@ -1,25 +1,16 @@
 #pragma once
-#include "IG2Object.h"
+#include "Character.h"
 #include "Helix.h"
 #include "Body.h"
 #include "Wheels.h"
-
-class Labyrinth;
 
 const float WHEELS_ROT = 1.0f;
 const float BODY_ROT = -2.0f;
 const float HELIX_ROT = 1.0f;
 
-class Enemigo : public IG2Object
+class Enemigo : public Character
 {
 protected:
-	Labyrinth* lab;
-	int tileWidth;
-	int distance;
-	Vector3 dir = Vector3(0, 0, 0);
-	Vector3 newDir = Vector3(0, 0, 0);
-	Vector2 actualPos;
-	int speed = 10;
 
 	Helix* helix = nullptr;
 	Wheels* wheels = nullptr;
@@ -28,20 +19,13 @@ protected:
 	virtual void frameRendered(const Ogre::FrameEvent& evt);
 
 public:
-	Enemigo(Vector2 initPos, SceneNode* node, SceneManager* mSM, Labyrinth* Lab = nullptr, int TileWidth = 1) : IG2Object(Vector3(initPos.y* TileWidth, 0, initPos.x* TileWidth), node, mSM), lab(Lab), tileWidth(TileWidth), actualPos(initPos), distance(0) {
+	Enemigo(Vector3 initPos, SceneNode* node, SceneManager* mSM, Labyrinth* Lab = nullptr, int TileWidth = 1) : Character(initPos, node, mSM, Lab, TileWidth) {
 		buildVillano();
 	}
 
-	void buildVillano() {
-		Vector3 pos = getPosition();
-		Vector3 bodyMid(0, (CUBE_SIZE * MID_SCALE.y)  / 2 + CUBE_SIZE * TOP_SCALE.y / 2, 0);
-		Vector3 bP = pos + bodyMid ;
-		Vector3 hP = bP + bodyMid +  Vector3(0 ,CUBE_SIZE * MID_SCALE.y +  CUBE_SIZE * PALE_SCALE.y * HELIX_SCALE.y, 0);
+	void buildVillano();
 
-		helix = new Helix(hP, mSM, mNode, 5, "helice1", HELIX_ROT);
-		body = new Body(bP, mSM, mNode, "body", BODY_ROT);
-		wheels = new Wheels(pos , mSM, mNode, 4, "wheels", WHEELS_ROT);
-	}
+	void startEnemie();
 
 	void debugPositions() {
 		auto pos = wheels->getPosition();

@@ -13,6 +13,7 @@ protected:
 	int speed = 2;
 
 public:
+	Character(Vector3 v, SceneNode* node, SceneManager* mSM, Labyrinth* Lab, int TileWidth) : IG2Object(v, node, mSM), lab(Lab), tileWidth(TileWidth), distance(0) {};
 	Character(Vector3 v, SceneNode* node, SceneManager* mSM, String mesh, Labyrinth* Lab, int TileWidth) : IG2Object(v, node, mSM, mesh), lab(Lab), tileWidth(TileWidth), distance(0) {};
 
 	virtual void frameRendered(const Ogre::FrameEvent& evt);

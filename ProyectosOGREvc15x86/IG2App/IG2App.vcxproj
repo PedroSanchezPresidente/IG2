@@ -120,8 +120,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Body.h" />
+    <ClInclude Include="CaminoMasCorto.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemigo.h" />
+    <ClInclude Include="Grafo.h" />
     <ClInclude Include="Helix.h" />
     <ClInclude Include="Heroe.h" />
     <ClInclude Include="IG2ApplicationContext.h" />
@@ -143,6 +145,7 @@
     <ClCompile Include="IG2Main.cpp" />
     <ClCompile Include="IG2App.cpp" />
     <ClCompile Include="IG2Object.cpp" />
+    <ClCompile Include="Labyrinth.cpp" />
     <ClCompile Include="Muro.cpp" />
     <ClCompile Include="Perla.cpp" />
     <ClCompile Include="Tile.cpp" />
