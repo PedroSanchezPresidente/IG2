@@ -85,7 +85,7 @@ void IG2App::setupScene(void){
     mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
     //mLightNode = mCamNode->createChildSceneNode("nLuz");
     mLightNode->attachObject(luz);
-    mLightNode->setDirection(Ogre::Vector3(-1, -1, -1));
+    mLightNode->setDirection(Ogre::Vector3(0, -1, 0));
 
     map = new Labyrinth("../stage1.txt", mSM, mTrayMgr,  mCamNode);
     map->setup();

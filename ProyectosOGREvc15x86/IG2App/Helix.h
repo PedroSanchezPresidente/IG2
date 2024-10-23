@@ -5,6 +5,7 @@
 #include <vector>
 
 const Vector3 HELIX_SCALE = { 0.3, 0.3, 0.3 };
+const Vector3 NINJA_SCALE = { 1.5, 1.5, 1.5 };
 
 class Helix : public IG2Object {
 private:
@@ -13,8 +14,9 @@ private:
 	Ogre::Degree rotation_fact;
 	// Vector que almacena las palas que se necesitan
 	std::vector<Pale*> pList;
+	IG2Object* cap;
 	
-	void createPales(SceneManager* sm) {
+	void createPales(SceneManager* sm, std::string mat) {
 		auto angle_offset = Math::TWO_PI / static_cast<Ogre::Real>(num);
 		Vector3 center = getPosition(); // Obtener la posición inicial
 		float offset = 200.0f; // Distancia desde el centro a cada pala
@@ -33,7 +35,7 @@ private:
 			rotation.FromAngleAxis(Radian(angle), Vector3::UNIT_Y);
 			rotation = rotation * Quaternion(Radian(-90), Vector3::UNIT_Y);
 			pale->rotate(rotation); 
-
+			pale->setMaterialName(mat);
 			pList.push_back(pale);
 		}
 	}
@@ -46,15 +48,16 @@ public:
 	* @param numPales
 	* @param nodeName
 	*/
-	Helix(Vector3 initPos, SceneManager* sM, SceneNode* parentNode, int numPales, string nodeName, float rot)
+	Helix(Vector3 initPos, SceneManager* sM, SceneNode* parentNode, int numPales, string nodeName, float rot, std::string hMat)
 		: IG2Object(initPos, parentNode->createChildSceneNode(nodeName), sM), 
 		num(numPales), pList(numPales, nullptr), rotation_fact(Ogre::Degree(rot)) {
 
 		if (numPales <= 0) {
 			throw std::invalid_argument("El número de palas debe ser mayor que cero.");
 		}
-		createPales(sM);
-
+		createPales(sM, hMat);
+		cap = new IG2Object(initPos, mNode->createChildSceneNode("capNode"), sM, "ninja.mesh");
+		cap->setScale(NINJA_SCALE);
 		setScale(HELIX_SCALE);
 	}
 	~Helix() {

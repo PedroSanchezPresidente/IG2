@@ -6,6 +6,7 @@
 #include "Perla.h"
 #include "InfoBox.h"
 #include "Muro.h"
+#include "Enemigo.h"
 #include <cmath>
 #include <list>
 
@@ -29,12 +30,14 @@ private:
     std::vector<Enemigo*> enemigos;
     InfoBox* ib;
 
+    std::string floorMat, pearlMat, wallMat, bodyMat1, bodyMat2, helMat;
+
     void createFloor(SceneManager* mSM) {
        floorNode = mSM->getRootSceneNode()->createChildSceneNode("floor");
-       Ogre::MeshManager::getSingleton().createPlane("Floor", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Plane(Vector3::UNIT_Y, -50), r * tileWidth - tileWidth, c * tileHeight - tileHeight, 100, 80, true, 1, 1.0, 1.0, Vector3::UNIT_Z);
+       Ogre::MeshManager::getSingleton().createPlane("Floor", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Plane(Vector3::UNIT_Y, -50), r * tileWidth - tileWidth, c * tileHeight - tileHeight, 100, 80, true, 1, r, c, Vector3::UNIT_Z);
        Ogre::Entity* plane = mSM->createEntity("Floor");
-       plane->setMaterialName("FloorMaterial");
-       floorNode->attachObject(plane);
+       plane->setMaterialName(floorMat);
+       floorNode->attachObject(plane); 
        floorNode->setPosition(center);
     }
 
@@ -45,6 +48,7 @@ private:
 public:
 
     Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager* tM, SceneNode* camNode);
+
 
     ~Labyrinth() {
         for (int i = 0; i < map.size(); i++) {
