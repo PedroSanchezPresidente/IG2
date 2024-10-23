@@ -85,19 +85,15 @@ void IG2App::setupScene(void){
     mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
     //mLightNode = mCamNode->createChildSceneNode("nLuz");
     mLightNode->attachObject(luz);
-    mLightNode->setDirection(Ogre::Vector3(-1, -1, -1));
+    mLightNode->setDirection(Ogre::Vector3(0, -1, 0));
 
-    /*map = new Labyrinth("../stage1.txt", mSM, mTrayMgr,  mCamNode);
+    map = new Labyrinth("../stage1.txt", mSM, mTrayMgr,  mCamNode);
 
-    addInputListener(map->getHeroe());*/
-
-
-    enemy = new Enemigo(Vector2(0, 0), mSM->getRootSceneNode()->createChildSceneNode("enemigo1"), mSM);
-    
-    auto pos = enemy->getPosition();
-    cout << "POSICION ENEMIGO: " << pos.x << ", " << pos.y << ", " << pos.z << endl;
-    addInputListener(enemy);
+    addInputListener(map->getHeroe());
    
+    for (auto e : map->getEnemyList()) {
+        addInputListener(e);
+    }
 }
 
 

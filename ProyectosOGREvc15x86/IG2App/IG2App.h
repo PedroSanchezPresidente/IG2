@@ -14,7 +14,6 @@
 #include <iostream>
 #include <string>
 #include "Labyrinth.h"
-#include "Enemigo.h"
 
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener{
 
@@ -52,7 +51,6 @@ protected:
     OgreBites::CameraMan* mCamMgr = nullptr;
 
     Labyrinth* map = nullptr;
-    Enemigo* enemy = nullptr;
 };
 
 #endif

@@ -17,7 +17,7 @@ private:
 	Ogre::Degree rotation_fact;
 	
 public:
-	Body(Vector3 midPos, SceneManager* sm, SceneNode* parentNode, string nodeName, float rot) :
+	Body(Vector3 midPos, SceneManager* sm, SceneNode* parentNode, string nodeName, float rot, std::string mat1, std::string mat2) :
 	IG2Object(midPos, parentNode->createChildSceneNode("nodeName"), sm)
 	{
 		rotation_fact = Ogre::Degree(rot);
@@ -27,10 +27,13 @@ public:
 
 		top = new IG2Object(midPos + offset, mNode->createChildSceneNode("bodytop"), sm, "cube.mesh");
 		top->setScale(TOP_SCALE);
+		top->setMaterialName(mat1);
 		mid = new IG2Object(midPos, mNode->createChildSceneNode("bodymid"), sm, "cube.mesh");
 		mid->setScale(MID_SCALE);
+		mid->setMaterialName(mat2);
 		bot = new IG2Object(midPos - offset, mNode->createChildSceneNode("bodybot"), sm, "cube.mesh");
 		bot->setScale(TOP_SCALE);
+		bot->setMaterialName(mat1);
 	}
 
 	~Body() {

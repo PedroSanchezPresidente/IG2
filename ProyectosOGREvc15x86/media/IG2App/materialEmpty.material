@@ -1,11 +1,105 @@
 material FloorMaterial {
 	technique{ first, preferred technique
 		pass { first pass
-			diffuse 0.5 0.5 0.5
+			//diffuse 0.5 0.5 0.5
 			ambient 0.1 0.2 0.3
 			specular 0.8 0.8 0.8 68
 			texture_unit {
 				texture BumpyMetal.jpg
+				colour_op modulate
+			}
+		}
+	}
+	technique { Second technique
+		pass {
+			diffuse 0.5 0.5 0.5
+		}
+	}
+}
+
+material PearlMaterial {
+	technique{ first, preferred technique
+		pass { first pass
+			//diffuse 0.5 0.5 0.5
+			ambient 0.1 0.2 0.3
+			specular 0.8 0.8 0.8 68
+			texture_unit {
+				texture tusk.jpg
+				colour_op modulate
+			}
+		}
+	}
+	technique { Second technique
+		pass {
+			diffuse 0.5 0.5 0.5
+		}
+	}
+}
+
+material WallMaterial {
+	technique{ first, preferred technique
+		pass { first pass
+			//diffuse 0.5 0.5 0.5
+			ambient 0.1 0.2 0.3
+			specular 0.8 0.8 0.8 68
+			texture_unit {
+				texture Panels_Diffuse.png
+				colour_op modulate
+			}
+		}
+	}
+	technique { Second technique
+		pass {
+			diffuse 0.5 0.5 0.5
+		}
+	}
+}
+
+material BodyMaterial1 {
+	technique{ first, preferred technique
+		pass { first pass
+			diffuse 0.325 0.094 0.533 
+			ambient 0.1 0.2 0.3
+			specular 0.8 0.8 0.8 68
+			texture_unit {
+				texture KAMEN-stup.jpg
+				colour_op modulate
+			}
+		}
+	}
+	technique { Second technique
+		pass {
+			diffuse 0.5 0.5 0.5
+		}
+	}
+}
+material BodyMaterial2 {
+	technique{ first, preferred technique
+		pass { first pass
+			diffuse 0.749 0.466 0.3
+			ambient 0.1 0.2 0.3
+			specular 0.8 0.8 0.8 68
+			texture_unit {
+				texture KAMEN-stup.jpg
+				colour_op modulate
+			}
+		}
+	}
+	technique { Second technique
+		pass {
+			diffuse 0.5 0.5 0.5
+		}
+	}
+}
+
+material HelixMaterial {
+	technique{ first, preferred technique
+		pass { first pass
+			diffuse 0.905 0.2 0.894
+			ambient 0.1 0.2 0.3
+			specular 0.8 0.8 0.8 68
+			texture_unit {
+				texture KAMEN-stup.jpg
 				colour_op modulate
 			}
 		}
