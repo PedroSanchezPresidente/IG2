@@ -8,6 +8,7 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
 
     node = mSM->getRootSceneNode()->createChildSceneNode("map");
     file >> r >> c;
+    file >> floorMat >> pearlMat >> wallMat >> bodyMat1 >> bodyMat2 >> helMat;
     map.resize(r);
 
     g = new Grafo(r * c);
@@ -25,20 +26,20 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
             z = i * tileHeight + tileHeight / 2;
 
             if (ch == 'x') {
-                map[i][j] = new Muro(Vector3(x, 0, z), n, mSM, false);
+                map[i][j] = new Muro(Vector3(x, 0, z), n, mSM, wallMat ,false);
             }
             else if (ch == 'o') {
-                map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, 10, true, true, Vector3(0.1, 0.1, 0.1));
+                map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, pearlMat, 10, true, true, Vector3(0.1, 0.1, 0.1));
             }
             else if (ch == 'h') {
-                map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, 0, false, true);
+                map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, pearlMat, 0, false, true);
                 n = node->createChildSceneNode();
                 heroe = new Heroe(Vector3(x, 0, z), n, mSM, "Sinbad.mesh", this, tileWidth);
             }
             else if (ch == 'v') {
-                map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, 10, true, true, Vector3(0.1, 0.1, 0.1));
+                map[i][j] = new Perla(Vector3(x, 0, z), n, mSM,  pearlMat, 10, true, true, Vector3(0.1, 0.1, 0.1));
                 n = node->createChildSceneNode();
-                Enemigo* e = new Enemigo(Vector3(x, 0, z), n, mSM, this, tileWidth);
+                Enemigo* e = new Enemigo(Vector3(x, 0, z), n, mSM, bodyMat1, bodyMat2, helMat, this, tileWidth);
                 enemigos.push_back(e);
             }
 
