@@ -150,6 +150,10 @@ class IG2Object : public OgreBites::InputListener {
         void yaw(Ogre::Degree d) {
             mNode->yaw(d);
         }
+
+        SceneNode* getSceneNode() const {
+            return mNode;
+        }
     protected:
     
         // Scene node representing this element in the scene

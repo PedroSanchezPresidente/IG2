@@ -123,6 +123,7 @@
     <ClInclude Include="CaminoMasCorto.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Enemigo.h" />
+    <ClInclude Include="FollowingLight.h" />
     <ClInclude Include="Grafo.h" />
     <ClInclude Include="Helix.h" />
     <ClInclude Include="Heroe.h" />
@@ -140,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Enemigo.cpp" />
+    <ClCompile Include="FollowingLight.cpp" />
     <ClCompile Include="Heroe.cpp" />
     <ClCompile Include="IG2ApplicationContext.cpp" />
     <ClCompile Include="IG2Main.cpp" />

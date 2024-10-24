@@ -11,7 +11,7 @@ const float HELIX_ROT = 3.0f;
 class Enemigo : public Character
 {
 protected:
-
+	int id;
 	Helix* helix = nullptr;
 	Wheels* wheels = nullptr;
 	Body* body = nullptr;
@@ -21,7 +21,7 @@ protected:
 	virtual void frameRendered(const Ogre::FrameEvent& evt);
 
 public:
-	Enemigo(Vector3 initPos, SceneNode* node, SceneManager* mSM, std::string bMat1, std::string bMat2, std::string hMat, Labyrinth* Lab = nullptr, int TileWidth = 1) : Character(initPos, node, mSM, Lab, TileWidth) {
+	Enemigo(Vector3 initPos, SceneNode* node, SceneManager* mSM, int id ,std::string bMat1, std::string bMat2, std::string hMat, Labyrinth* Lab = nullptr, int TileWidth = 1) : Character(initPos, node, mSM, Lab, TileWidth), id(id) {
 		buildVillano(bMat1, bMat2, hMat);
 	}
 

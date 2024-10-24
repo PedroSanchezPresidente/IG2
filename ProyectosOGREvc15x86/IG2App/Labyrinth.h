@@ -7,6 +7,7 @@
 #include "InfoBox.h"
 #include "Muro.h"
 #include "Enemigo.h"
+#include "FollowingLight.h"
 #include <cmath>
 #include <list>
 
@@ -27,8 +28,11 @@ private:
 
     int tileHeight = 100, tileWidth = 100;
     int r, c;
+    int typeLight;
 
     Heroe* heroe;
+    FollowingLight* heroeLight;
+    std::list<FollowingLight* > enemiesLights;
     std::vector<Enemigo*> enemigos;
     InfoBox* ib;
 
@@ -54,13 +58,28 @@ public:
 
     ~Labyrinth() {
         for (int i = 0; i < map.size(); i++) {
-            for (int j = 0; map[i].size(); j++) {
-                delete map[i][j];
+            for (int j = 0; j < map[i].size(); j++) {
+                delete map[i][j]; // Eliminar cada Tile
             }
             map[i].clear();
         }
-
         map.clear();
+
+        for (Enemigo* e : enemigos) {
+            delete e; 
+        }
+        enemigos.clear();
+
+        for (FollowingLight* light : enemiesLights) {
+            delete light; 
+        }
+        enemiesLights.clear();
+
+        delete heroe;
+
+        delete heroeLight;
+
+        delete ib;
     }
 
     void setup() {

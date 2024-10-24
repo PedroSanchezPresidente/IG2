@@ -56,7 +56,7 @@ public:
 			throw std::invalid_argument("El número de palas debe ser mayor que cero.");
 		}
 		createPales(sM, hMat);
-		cap = new IG2Object(initPos, mNode->createChildSceneNode("capNode"), sM, "ninja.mesh");
+		cap = new IG2Object(initPos, mNode->createChildSceneNode("ninja_" + mNode->getName()), sM, "ninja.mesh");
 		cap->setScale(NINJA_SCALE);
 		setScale(HELIX_SCALE);
 	}

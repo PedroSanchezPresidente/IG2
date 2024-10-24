@@ -6,8 +6,9 @@ WallMaterial
 BodyMaterial1
 BodyMaterial2
 HelixMaterial
+0
 xxxxxxxxxxxxxxxxxxx
-xooooooooxoooooooox
+xoovoooooxoooooooox
 xoxxoxxxoxoxxxoxxox
 xooooooooooooooooox
 xoxxoxoxxxxxoxoxxox

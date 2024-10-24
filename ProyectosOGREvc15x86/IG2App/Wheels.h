@@ -22,7 +22,7 @@ private:
 				center.z + offset * Math::Cos(angle)
 			};
 
-			IG2Object* wheel = new IG2Object(wPos, mNode->createChildSceneNode("wheel_" + to_string(i)), sm, "sphere.mesh");
+			IG2Object* wheel = new IG2Object(wPos, mNode->createChildSceneNode("wheel_" + to_string(i) + "_" + mNode->getName()), sm, "sphere.mesh");
 			wheel->setScale(WHEEL_SCALE);
 			wList.push_back(wheel);
 		}

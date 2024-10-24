@@ -8,9 +8,9 @@ void Enemigo::buildVillano(std::string bodyMat1, std::string bodyMat2, std::stri
 	Vector3 bP = pos_rel + bodyMid;
 	Vector3 hP = bP + bodyMid + Vector3(0, CUBE_SIZE * MID_SCALE.y + CUBE_SIZE * PALE_SCALE.y * HELIX_SCALE.y, 0);
 
-	helix = new Helix(hP, mSM, mNode, 5, "helice1", HELIX_ROT, hMat);
-	body = new Body(bP, mSM, mNode, "body", BODY_ROT, bodyMat1, bodyMat2);
-	wheels = new Wheels(pos_rel, mSM, mNode, 4, "wheels", WHEELS_ROT);
+	helix = new Helix(hP, mSM, mNode, 5, "helice1_" + to_string(id), HELIX_ROT, hMat);
+	body = new Body(bP, mSM, mNode, "body_" + to_string(id), BODY_ROT, bodyMat1, bodyMat2);
+	wheels = new Wheels(pos_rel, mSM, mNode, 4, "wheels_" + to_string(id), WHEELS_ROT);
 }
 
 void Enemigo::startEnemie(){

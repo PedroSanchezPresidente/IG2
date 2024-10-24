@@ -8,7 +8,7 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
 
     node = mSM->getRootSceneNode()->createChildSceneNode("map");
     file >> r >> c;
-    file >> floorMat >> pearlMat >> wallMat >> bodyMat1 >> bodyMat2 >> helMat;
+    file >> floorMat >> pearlMat >> wallMat >> bodyMat1 >> bodyMat2 >> helMat >> typeLight;
     map.resize(r);
 
     g = new Grafo(r * c);
@@ -39,10 +39,10 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
             else if (ch == 'v') {
                 map[i][j] = new Perla(Vector3(x, 0, z), n, mSM,  pearlMat, 10, true, true, Vector3(0.1, 0.1, 0.1));
                 n = node->createChildSceneNode();
-                Enemigo* e = new Enemigo(Vector3(x, -ENEMY_Y_OFFSET, z), n, mSM, bodyMat1, bodyMat2, helMat, this, tileWidth);
+                Enemigo* e = new Enemigo(Vector3(x, -ENEMY_Y_OFFSET, z), n, mSM, enemigos.size(), bodyMat1, bodyMat2, helMat, this, tileWidth);
                 e->setScale(ENEMY_SCALE);
                 enemigos.push_back(e);
-                e->debugPositions();
+                enemiesLights.push_back(new FollowingLight(e->getSceneNode(), mSM, Light::LightTypes::LT_POINT, "enemyLight" + to_string(enemiesLights.size() - 1), Ogre::ColourValue::Red, Vector3(0, -10, 0)));
             }
 
             if (ch != 'x') {
@@ -53,15 +53,18 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
             }
         }
     }
-        center = Vector3((map.size() * tileHeight) / 2 - tileHeight / 2, 0, (map[0].size() * tileWidth) / 2 - tileWidth / 2);
+    center = Vector3((map.size() * tileHeight) / 2 - tileHeight / 2, 0, (map[0].size() * tileWidth) / 2 - tileWidth / 2);
 
-        createFloor(mSM);
+    createFloor(mSM);
 
-        setCameraPosition(camNode);
+    setCameraPosition(camNode);
 
+    if (heroe != nullptr) {
         heroe->showBoundingBox(true);
+        heroeLight = new FollowingLight(heroe->getSceneNode(), mSM, typeLight, "heroeLight");
+    }
 
-        ib = new InfoBox(tM);
+    ib = new InfoBox(tM);
 }
 
 
