@@ -3,13 +3,14 @@
 
 void Enemigo::buildVillano(std::string bodyMat1, std::string bodyMat2, std::string hMat) {
 	Vector3 pos = getPosition();
+	Vector3 pos_rel(0, pos.y, 0);
 	Vector3 bodyMid(0, (CUBE_SIZE * MID_SCALE.y) / 2 + CUBE_SIZE * TOP_SCALE.y / 2, 0);
-	Vector3 bP = pos + bodyMid;
+	Vector3 bP = pos_rel + bodyMid;
 	Vector3 hP = bP + bodyMid + Vector3(0, CUBE_SIZE * MID_SCALE.y + CUBE_SIZE * PALE_SCALE.y * HELIX_SCALE.y, 0);
 
 	helix = new Helix(hP, mSM, mNode, 5, "helice1", HELIX_ROT, hMat);
 	body = new Body(bP, mSM, mNode, "body", BODY_ROT, bodyMat1, bodyMat2);
-	wheels = new Wheels(pos, mSM, mNode, 4, "wheels", WHEELS_ROT);
+	wheels = new Wheels(pos_rel, mSM, mNode, 4, "wheels", WHEELS_ROT);
 }
 
 void Enemigo::startEnemie(){

@@ -39,8 +39,10 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
             else if (ch == 'v') {
                 map[i][j] = new Perla(Vector3(x, 0, z), n, mSM,  pearlMat, 10, true, true, Vector3(0.1, 0.1, 0.1));
                 n = node->createChildSceneNode();
-                Enemigo* e = new Enemigo(Vector3(x, 0, z), n, mSM, bodyMat1, bodyMat2, helMat, this, tileWidth);
+                Enemigo* e = new Enemigo(Vector3(x, -ENEMY_Y_OFFSET, z), n, mSM, bodyMat1, bodyMat2, helMat, this, tileWidth);
+                e->setScale(ENEMY_SCALE);
                 enemigos.push_back(e);
+                e->debugPositions();
             }
 
             if (ch != 'x') {
