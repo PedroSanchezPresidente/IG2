@@ -14,18 +14,17 @@ void Enemigo::buildVillano(std::string bodyMat1, std::string bodyMat2, std::stri
 }
 
 void Enemigo::startEnemie(){
-	dir = lab->getDistance(getPosition());
+	newDir = lab->getDistance(getPosition());
 }
 
 void Enemigo::frameRendered(const Ogre::FrameEvent& evt)
 {
 	Vector3 posLat = { dir.z, 0 ,dir.x };
 	posLat *= tileWidth;
-	if (lab->getTile(getPosition() + posLat)->isTraspasable() || lab->getTile(getPosition() - posLat)->isTraspasable()) {
-		lab->getDistance(getPosition());
+	if ((lab->getTile(getPosition() + posLat)->isTraspasable() || lab->getTile(getPosition() - posLat)->isTraspasable()) && distance == 0) {
+		newDir = lab->getDistance(getPosition());
 	}
-	if (dir == Vector3::ZERO)
-		newDir = -dir;
+	Character::frameRendered(evt);
 	helix->update();
 	body->update();
 	wheels->update();

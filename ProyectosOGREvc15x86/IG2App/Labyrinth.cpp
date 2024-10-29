@@ -69,28 +69,31 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
 
 
 Vector3 Labyrinth::getDistance(Vector3 s) {
-    Vector3 dir;
+    Vector3 dir = Vector3(0,0,0);
     int distance = 10000000;
 
-    int sPX = s.z / tileWidth;
-    int sPY = s.x / tileHeight;
-    int eP = heroe->getPosition().z / tileWidth + (heroe->getPosition().x / tileHeight) * c;
+    int sPX = s.x / tileWidth;
+    int sPY = s.z / tileHeight;
+    int sP = sPX + sPY * c;
+    int x = heroe->getPosition().x / tileWidth;
+    int y = (heroe->getPosition().z / tileHeight);
+    int eP = x + y * c;
     CaminoMasCorto cam(*g, eP);
 
-    if (sPY != 0 && map[sPY - 1][sPX]->isTraspasable() && cam.distancia((sPY - 1) * c + sPX) < distance) {
-        distance = cam.distancia((sPY - 1) * c + sPX);
+    if (sPY > 0 && map[sPY - 1][sPX]->isTraspasable() && cam.distancia(sP-c) < distance) {
+        distance = cam.distancia(sP-c);
         dir = { 0,0,-1 };
     }
-    if (sPY != r - 1 && map[sPY + 1][sPX]->isTraspasable() && cam.distancia((sPY + 1) * c + sPX) < distance) {
-        distance = cam.distancia((sPY + 1) * c + sPX);
+    if (sPY != r - 1 && map[sPY + 1][sPX]->isTraspasable() && cam.distancia(sP + c) < distance) {
+        distance = cam.distancia(sP+c);
         dir = { 0,0,1 };
     }
-    if (sPX != 0 && map[sPY][sPX - 1]->isTraspasable() && cam.distancia(sPY * c + sPX + 1) < distance) {
-        distance = cam.distancia(sPY * c + sPX - 1);
+    if (sPX != 0 && map[sPY][sPX - 1]->isTraspasable() && cam.distancia(sP-1) < distance) {
+        distance = cam.distancia(sP-1);
         dir = { -1,0,0 };
     }
-    if (sPY != 0 && map[sPY - 1][sPX]->isTraspasable() && cam.distancia(sPY * c + sPX + 1) < distance) {
-        distance = cam.distancia(sPY * sPX + sPX + 1);
+    if (sPX != c - 1 && map[sPY][sPX + 1]->isTraspasable() && cam.distancia(sP+1) < distance) {
+        distance = cam.distancia(sP+1);
         dir = { 1,0,0 };
     }
 
