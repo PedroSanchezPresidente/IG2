@@ -23,7 +23,7 @@ FollowingLight::FollowingLight(SceneNode* parentNode, SceneManager* sm, int type
 		break;
 	}
 	mLight->setDiffuseColour(color);
-	sm->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+	sm->setShadowTechnique(Ogre::SHADOWDETAILTYPE_TEXTURE);
 	mLight->setCastShadows(true);
 	mNode->attachObject(mLight);
 }
