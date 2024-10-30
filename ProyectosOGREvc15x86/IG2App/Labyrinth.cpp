@@ -1,5 +1,4 @@
 #include "Labyrinth.h"
-#include "CaminoMasCorto.h"
 
 Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager* tM, SceneNode* camNode) {
     ifstream file(routeName);
@@ -12,6 +11,7 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
     map.resize(r);
 
     g = new Grafo(r * c);
+    int eP;
 
     for (int i = 0; i < r; i++) {
         map[i].resize(c);
@@ -32,9 +32,10 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
                 map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, pearlMat, 10, true, true, Vector3(0.1, 0.1, 0.1));
             }
             else if (ch == 'h') {
-                map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, pearlMat, 0, false, true);
+                map[i][j] = new Tile();
                 n = node->createChildSceneNode();
                 heroe = new Heroe(Vector3(x, 0, z), n, mSM, "Sinbad.mesh", this, tileWidth);
+                eP = i + j * c;
             }
             else if (ch == 'v') {
                 map[i][j] = new Perla(Vector3(x, 0, z), n, mSM,  pearlMat, 10, true, true, Vector3(0.1, 0.1, 0.1));
@@ -65,6 +66,8 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
     }
 
     ib = new InfoBox(tM);
+
+    cam = new CaminoMasCorto(*g, eP);
 }
 
 
@@ -78,24 +81,38 @@ Vector3 Labyrinth::getDistance(Vector3 s) {
     int x = heroe->getPosition().x / tileWidth;
     int y = (heroe->getPosition().z / tileHeight);
     int eP = x + y * c;
-    CaminoMasCorto cam(*g, eP);
+    if (cam->getS() != eP) {
+        delete cam;
+        cam = new CaminoMasCorto(*g, eP);
+    }
 
-    if (sPY > 0 && map[sPY - 1][sPX]->isTraspasable() && cam.distancia(sP-c) < distance) {
-        distance = cam.distancia(sP-c);
+    if (sPY > 0 && map[sPY - 1][sPX]->isTraspasable() && cam->distancia(sP - c) < distance) {
+        distance = cam->distancia(sP - c);
         dir = { 0,0,-1 };
     }
-    if (sPY != r - 1 && map[sPY + 1][sPX]->isTraspasable() && cam.distancia(sP + c) < distance) {
-        distance = cam.distancia(sP+c);
+    if (sPY != r - 1 && map[sPY + 1][sPX]->isTraspasable() && cam->distancia(sP + c) < distance) {
+        distance = cam->distancia(sP + c);
         dir = { 0,0,1 };
     }
-    if (sPX != 0 && map[sPY][sPX - 1]->isTraspasable() && cam.distancia(sP-1) < distance) {
-        distance = cam.distancia(sP-1);
+    if (sPX != 0 && map[sPY][sPX - 1]->isTraspasable() && cam->distancia(sP - 1) < distance) {
+        distance = cam->distancia(sP - 1);
         dir = { -1,0,0 };
     }
-    if (sPX != c - 1 && map[sPY][sPX + 1]->isTraspasable() && cam.distancia(sP+1) < distance) {
-        distance = cam.distancia(sP+1);
+    if (sPX != c - 1 && map[sPY][sPX + 1]->isTraspasable() && cam->distancia(sP + 1) < distance) {
+        distance = cam->distancia(sP+1);
         dir = { 1,0,0 };
     }
 
     return dir;
 }
+
+void Labyrinth::gameOver() {
+    for (std::vector<Tile*> r : map)
+        for (Tile* t : r)
+            t->restart();
+
+    heroe->restart();
+    for (Enemigo* e : enemigos)
+        e->restart();
+    ib->gameOver();
+};

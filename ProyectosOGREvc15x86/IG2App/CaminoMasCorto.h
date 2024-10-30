@@ -27,6 +27,9 @@ public:
 		ant(g.V()), dist(g.V()), s(s) {
 		bfs(g);
 	}
+	int getS() {
+		return s;
+	}
 	// ¿hay camino del origen a v?
 	bool hayCamino(int v) const {
 		return visit[v];

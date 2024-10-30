@@ -10,16 +10,15 @@
 #include "FollowingLight.h"
 #include <cmath>
 #include <list>
+#include "CaminoMasCorto.h"
 
 using namespace std;
-
-class Grafo;
-
 
 class Labyrinth {
 private:
 	std::vector<std::vector<Tile*>> map;
     Grafo* g; //prueba
+    CaminoMasCorto* cam;
     const Vector3 ENEMY_SCALE = { 0.6, 0.6, 0.6 };
     const float ENEMY_Y_OFFSET = 10.0f;
     SceneNode* node = nullptr;
@@ -80,6 +79,8 @@ public:
         delete heroeLight;
 
         delete ib;
+
+        delete g;
     }
 
     void setup() {
@@ -108,4 +109,6 @@ public:
     }
 
     Vector3 getDistance(Vector3 s);
+
+    void gameOver();
 };

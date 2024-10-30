@@ -17,6 +17,12 @@ void Enemigo::startEnemie(){
 	newDir = lab->getDistance(getPosition());
 }
 
+void Enemigo::restart() {
+	setPosition(iniPos);
+	newDir = lab->getDistance(getPosition());
+	distance = 0;
+};
+
 void Enemigo::frameRendered(const Ogre::FrameEvent& evt)
 {
 	Vector3 posLat = { dir.z, 0 ,dir.x };
@@ -28,4 +34,6 @@ void Enemigo::frameRendered(const Ogre::FrameEvent& evt)
 	helix->update();
 	body->update();
 	wheels->update();
+	if (body->getAABB().intersects(lab->getHeroe()->getAABB()))
+		lab->gameOver();
 }

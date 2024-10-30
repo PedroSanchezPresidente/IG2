@@ -41,5 +41,7 @@ public:
 		helix->showBoundingBox(true);
 
 	}
+
+	virtual void restart();
 };
 

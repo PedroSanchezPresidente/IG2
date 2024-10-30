@@ -16,5 +16,12 @@ public:
 
 	void addPoints(int p);
 	
+	virtual void restart() { 
+		setPosition(iniPos); 
+		dir = newDir = Vector3::ZERO;
+		Quaternion q = getOrientation().getRotationTo(Vector3(0, 0, 1));
+		mNode->rotate(q);
+		distance = 0;
+	};
 };
 

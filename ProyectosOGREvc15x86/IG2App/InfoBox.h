@@ -32,4 +32,10 @@ public:
 		points += p;
 		updateTextBoxText();
 	}
+
+	void gameOver() {
+		points = 0;
+		lives -= 1;
+		updateTextBoxText();
+	}
 };
