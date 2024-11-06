@@ -15,6 +15,8 @@
 #include <string>
 #include "Labyrinth.h"
 
+enum GameState {MAIN_MENU, GAME};
+
 class IG2App : public  OgreBites::IG2ApplicationContext, OgreBites::InputListener{
 
 public:
@@ -26,19 +28,7 @@ protected:
     virtual void setup();
     virtual void shutdown();
     virtual void setupScene();
-    
-    
-    //Ogre::SceneNode* mBathNode = nullptr;
-    //Ogre::SceneNode* mSnowmanNode = nullptr;
-    //Ogre::SceneNode* mSnowmanHeadNode = nullptr;
-    //Ogre::SceneNode* mSnowmanBodyNode = nullptr;
-    //Ogre::SceneNode* mSnowmanNoseNode = nullptr;
-    //Ogre::SceneNode* mSnowmanMouthNode = nullptr;
-    //Ogre::SceneNode* mSnowmanRENode = nullptr;
-    //Ogre::SceneNode* mSnowmanLENode = nullptr;
-    //// Ombligo
-    //Ogre::SceneNode* mSnowmanBBNode = nullptr;
-
+    void changeScene(GameState state);
       
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;

@@ -37,7 +37,16 @@ bool Heroe::keyReleased(const OgreBites::KeyboardEvent& evt) {
 }
 
 void Heroe::frameRendered(const Ogre::FrameEvent& evt) {
-    Character::frameRendered(evt);
+    Character::frameRendered(evt); 
+
+    AnimationStateSet* aux = entity->getAllAnimationStates();
+    auto it = aux->getAnimationStateIterator().begin();
+    while (it != aux->getAnimationStateIterator().end()) {
+        auto s = it->second;
+        ++it;
+        s->addTime(evt.timeSinceLastEvent);
+    }
+
     if (distance == 0)
         lab->getTile(getPosition())->interact(this);
 }
@@ -45,4 +54,8 @@ void Heroe::frameRendered(const Ogre::FrameEvent& evt) {
 void Heroe::addPoints(int p)
 {
     lab->addPoints(p);
+}
+
+void Heroe::addKeyframe(NodeAnimationTrack* nodeAnimationTrack, Quaternion giro, Vector3 posicion) {
+    //animationState = entity->getAnimationState(anims[0]); //entity se construye sobre una malla
 }

@@ -9,6 +9,9 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt){
     if (evt.keysym.sym == SDLK_ESCAPE){
         getRoot()->queueEndRendering();
     }
+    else if (evt.keysym.sym == SDLK_s) {
+        changeScene(GAME);
+    }
     
   return true;
 }
@@ -62,7 +65,7 @@ void IG2App::setupScene(void){
     mCamNode = mSM->getRootSceneNode()->createChildSceneNode("nCam");
     mCamNode->attachObject(cam);
 
-    mCamNode->setPosition(0, -1000, 1000);
+    mCamNode->setPosition(0, 0, 100);
     mCamNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
     
     // and tell it to render into the main window
@@ -72,18 +75,24 @@ void IG2App::setupScene(void){
     mCamMgr = new OgreBites::CameraMan(mCamNode);
     addInputListener(mCamMgr);
     mCamMgr->setStyle(OgreBites::CS_ORBIT);
-    
-    // ---------------------------------------------
-    //  Creating laberynth
+}
 
-    map = new Labyrinth("../stage1.txt", mSM, mTrayMgr,  mCamNode);
-    map->setup();
+void IG2App::changeScene(GameState state) {
+    switch (state) {
+    case GAME:
+        // ---------------------------------------------
+        //  Creating laberynth
 
-    addInputListener(map->getHeroe());
+        map = new Labyrinth("../stage1.txt", mSM, mTrayMgr, mCamNode);
+        map->setup();
 
-    std::vector<Enemigo*> enemigos = map->getEnemigos();
-    for (Enemigo* e : enemigos) {
-        addInputListener(e);
+        addInputListener(map->getHeroe());
+        for (Enemigo* e : map->getEnemigos()) {
+            addInputListener(e);
+        }
+        break;
+    default:
+        break;
     }
 }
 
