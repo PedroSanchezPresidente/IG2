@@ -92,6 +92,7 @@ void IG2App::changeScene(GameState state) {
         }
         break;
     default:
+
         break;
     }
 }

@@ -148,9 +148,6 @@
     <ClCompile Include="IG2App.cpp" />
     <ClCompile Include="IG2Object.cpp" />
     <ClCompile Include="Labyrinth.cpp" />
-    <ClCompile Include="Muro.cpp" />
-    <ClCompile Include="Perla.cpp" />
-    <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
