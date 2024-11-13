@@ -13,12 +13,9 @@ private:
 
 public:
 	FollowingLight(SceneNode* parentNode, SceneManager* sm, int type, std::string name , Ogre::ColourValue color = Ogre::ColourValue::White, Vector3 offset = Vector3::ZERO);
-	~FollowingLight() {
-		delete mLight;
-		delete mNode;
-		mLight = nullptr;
-		mNode = nullptr;
-	}
 
+	void setVisible(bool b) {
+		mNode->setVisible(b);
+	}
 };
 

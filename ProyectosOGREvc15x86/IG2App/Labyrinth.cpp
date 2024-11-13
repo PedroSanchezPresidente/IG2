@@ -32,7 +32,7 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
                 map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, pearlMat, 10, true, true, Vector3(0.1, 0.1, 0.1));
             }
             else if (ch == 'h') {
-                map[i][j] = new Tile();
+                map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, pearlMat, 10, false, true, Vector3(0.1, 0.1, 0.1));
                 n = node->createChildSceneNode();
                 heroe = new Heroe(Vector3(x, 0, z), n, mSM, "Sinbad.mesh", this, tileWidth);
                 eP = i + j * c;
@@ -61,7 +61,6 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
     setCameraPosition(camNode);
 
     if (heroe != nullptr) {
-        heroe->showBoundingBox(true);
         heroeLight = new FollowingLight(heroe->getSceneNode(), mSM, typeLight, "heroeLight");
     }
 
@@ -116,3 +115,23 @@ void Labyrinth::gameOver() {
         e->restart();
     ib->gameOver();
 };
+
+void Labyrinth::setVisible(bool b) {
+    for (std::vector<Tile*> v : map){
+        for (Tile* t : v) {
+            t->setVisible(b);
+        }
+    }
+
+    heroe->setVisible(b);
+
+    for (Enemigo* e : enemigos)
+        e->setVisible(b);
+
+    for (FollowingLight* f : enemiesLights)
+        f->setVisible(b);
+
+    heroeLight->setVisible(b);
+
+    ib->setVisible(b);
+}

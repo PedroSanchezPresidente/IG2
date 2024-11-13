@@ -10,22 +10,39 @@ bool IG2App::keyPressed(const OgreBites::KeyboardEvent& evt){
         getRoot()->queueEndRendering();
     }
     else if (evt.keysym.sym == SDLK_s) {
-        changeScene(GAME);
+        if (_state != GAME) {
+            _state = GAME;
+            changeScene();
+        }
+    }
+    else if (evt.keysym.sym == SDLK_p) {
+        if (_state != MAIN_MENU) {
+            _state = MAIN_MENU;
+            changeScene();
+        }
     }
     
   return true;
 }
 
 void IG2App::shutdown(){
+    if (map != nullptr) {
+        delete map;
+        map = nullptr;
+    }
+    if (cinematic != nullptr) {
+        delete cinematic;
+        cinematic = nullptr;
+    }
     
   mShaderGenerator->removeSceneManager(mSM);
   mSM->removeRenderQueueListener(mOverlaySystem);  
-					
-  mRoot->destroySceneManager(mSM);  
 
+  mRoot->destroySceneManager(mSM);  
+					
   delete mTrayMgr;  mTrayMgr = nullptr;
   delete mCamMgr; mCamMgr = nullptr;
-  
+
   // do not forget to call the base 
   IG2ApplicationContext::shutdown(); 
 }
@@ -65,8 +82,8 @@ void IG2App::setupScene(void){
     mCamNode = mSM->getRootSceneNode()->createChildSceneNode("nCam");
     mCamNode->attachObject(cam);
 
-    mCamNode->setPosition(0, 0, 100);
-    mCamNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
+    mCamNode->setPosition(0, -10, 30);
+    mCamNode->lookAt(Ogre::Vector3(0, -5, 0), Ogre::Node::TS_WORLD);
     
     // and tell it to render into the main window
     Viewport* vp = getRenderWindow()->addViewport(cam);
@@ -75,24 +92,37 @@ void IG2App::setupScene(void){
     mCamMgr = new OgreBites::CameraMan(mCamNode);
     addInputListener(mCamMgr);
     mCamMgr->setStyle(OgreBites::CS_ORBIT);
+
+
+    // ---------------------------------------------
+    //  Creating laberynth
+
+    map = new Labyrinth("../stage1.txt", mSM, mTrayMgr, mCamNode);
+    map->setup();
+
+    addInputListener(map->getHeroe());
+    for (Enemigo* e : map->getEnemigos()) {
+        addInputListener(e);
+    }
+
+    //----------------------------------------------
+    //  Creating cinematic
+    cinematic = new Cinematic(mSM);
+
+    changeScene();
 }
 
-void IG2App::changeScene(GameState state) {
-    switch (state) {
+void IG2App::changeScene() {
+    switch (_state) {
     case GAME:
-        // ---------------------------------------------
-        //  Creating laberynth
-
-        map = new Labyrinth("../stage1.txt", mSM, mTrayMgr, mCamNode);
-        map->setup();
-
-        addInputListener(map->getHeroe());
-        for (Enemigo* e : map->getEnemigos()) {
-            addInputListener(e);
-        }
+        map->setVisible(true);
+        cinematic->setVisible(false);
+        break;
+    case MAIN_MENU:
+        map->setVisible(false);
+        cinematic->setVisible(true);
         break;
     default:
-
         break;
     }
 }

@@ -38,4 +38,11 @@ public:
 		lives -= 1;
 		updateTextBoxText();
 	}
+
+	void setVisible(bool b) {
+		if (b)
+			mng->showTrays();
+		else
+			mng->hideTrays();
+	}
 };

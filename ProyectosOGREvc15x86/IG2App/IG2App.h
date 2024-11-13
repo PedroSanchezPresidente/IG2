@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 #include "Labyrinth.h"
+#include "Cinematic.h"
 
 enum GameState {MAIN_MENU, GAME};
 
@@ -28,7 +29,7 @@ protected:
     virtual void setup();
     virtual void shutdown();
     virtual void setupScene();
-    void changeScene(GameState state);
+    void changeScene();
       
     Ogre::SceneManager* mSM = nullptr;
     OgreBites::TrayManager* mTrayMgr = nullptr;
@@ -40,7 +41,10 @@ protected:
     Ogre::SceneNode* mCamNode = nullptr;
     OgreBites::CameraMan* mCamMgr = nullptr;
 
+    GameState _state = MAIN_MENU;
+
     Labyrinth* map = nullptr;
+    Cinematic* cinematic = nullptr;
 };
 
 #endif

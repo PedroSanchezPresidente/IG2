@@ -111,4 +111,6 @@ public:
     Vector3 getDistance(Vector3 s);
 
     void gameOver();
+
+    void setVisible(bool b);
 };

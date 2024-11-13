@@ -122,6 +122,7 @@
     <ClInclude Include="Body.h" />
     <ClInclude Include="CaminoMasCorto.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Cinematic.h" />
     <ClInclude Include="Enemigo.h" />
     <ClInclude Include="FollowingLight.h" />
     <ClInclude Include="Grafo.h" />
