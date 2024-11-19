@@ -8,6 +8,7 @@ public:
 	bool isTraspasable() { return traspasable_; }
 	virtual void interact(Heroe* h) {};
 	virtual void restart() {};
+	virtual void setVisible(bool b) { setEntityVisible(b); };
 protected:
 	bool traspasable_; 
 };

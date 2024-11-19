@@ -25,15 +25,17 @@ void Enemigo::restart() {
 
 void Enemigo::frameRendered(const Ogre::FrameEvent& evt)
 {
-	Vector3 posLat = { dir.z, 0 ,dir.x };
-	posLat *= tileWidth;
-	if ((lab->getTile(getPosition() + posLat)->isTraspasable() || lab->getTile(getPosition() - posLat)->isTraspasable()) && distance == 0) {
-		newDir = lab->getDistance(getPosition());
+	if (_active) {
+		Vector3 posLat = { dir.z, 0 ,dir.x };
+		posLat *= tileWidth;
+		if ((lab->getTile(getPosition() + posLat)->isTraspasable() || lab->getTile(getPosition() - posLat)->isTraspasable()) && distance == 0) {
+			newDir = lab->getDistance(getPosition());
+		}
+		Character::frameRendered(evt);
+		helix->update();
+		body->update();
+		wheels->update();
+		if (body->getAABB().intersects(lab->getHeroe()->getAABB()))
+			lab->gameOver();
 	}
-	Character::frameRendered(evt);
-	helix->update();
-	body->update();
-	wheels->update();
-	if (body->getAABB().intersects(lab->getHeroe()->getAABB()))
-		lab->gameOver();
 }

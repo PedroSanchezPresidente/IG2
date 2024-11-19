@@ -39,6 +39,12 @@ public:
 		updateTextBoxText();
 	}
 
+	void restart() {
+		points = 0;
+		lives = 0;
+		updateTextBoxText();
+	}
+
 	void setVisible(bool b) {
 		if (b)
 			mng->showTrays();

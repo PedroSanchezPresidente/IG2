@@ -12,6 +12,7 @@ protected:
 	Vector3 dir = Vector3(0, 0, 0);
 	Vector3 newDir = Vector3(0, 0, 0);
 	int speed = 2;
+	bool _active = true;
 
 public:
 	Character(Vector3 v, SceneNode* node, SceneManager* mSM, Labyrinth* Lab, int TileWidth) : IG2Object(v, node, mSM), lab(Lab), tileWidth(TileWidth), distance(0), iniPos(v) {};
@@ -20,5 +21,7 @@ public:
 	virtual void frameRendered(const Ogre::FrameEvent& evt);
 
 	virtual void restart() {};
+
+	void setActive(bool b) { _active = b; };
 };
 

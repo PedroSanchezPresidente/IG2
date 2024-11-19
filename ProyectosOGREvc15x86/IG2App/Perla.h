@@ -32,6 +32,7 @@ public :
 		setEntityVisible(true);
 		active_ = true;
 	}
+
 private:
 	bool active_;
 	int points_;

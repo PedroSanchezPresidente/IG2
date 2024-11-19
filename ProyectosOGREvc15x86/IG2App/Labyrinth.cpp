@@ -1,6 +1,6 @@
 #include "Labyrinth.h"
 
-Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager* tM, SceneNode* camNode) {
+Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager* tM) {
     ifstream file(routeName);
     if (!file)
         cout << "no se pudo abrir el archivo\n";
@@ -58,15 +58,13 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
 
     createFloor(mSM);
 
-    setCameraPosition(camNode);
-
     if (heroe != nullptr) {
         heroeLight = new FollowingLight(heroe->getSceneNode(), mSM, typeLight, "heroeLight");
     }
 
     ib = new InfoBox(tM);
 
-    cam = new CaminoMasCorto(*g, eP);
+    camino = new CaminoMasCorto(*g, eP);
 }
 
 
@@ -80,25 +78,25 @@ Vector3 Labyrinth::getDistance(Vector3 s) {
     int x = heroe->getPosition().x / tileWidth;
     int y = (heroe->getPosition().z / tileHeight);
     int eP = x + y * c;
-    if (cam->getS() != eP) {
-        delete cam;
-        cam = new CaminoMasCorto(*g, eP);
+    if (camino->getS() != eP) {
+        delete camino;
+        camino = new CaminoMasCorto(*g, eP);
     }
 
-    if (sPY > 0 && map[sPY - 1][sPX]->isTraspasable() && cam->distancia(sP - c) < distance) {
-        distance = cam->distancia(sP - c);
+    if (sPY > 0 && map[sPY - 1][sPX]->isTraspasable() && camino->distancia(sP - c) < distance) {
+        distance = camino->distancia(sP - c);
         dir = { 0,0,-1 };
     }
-    if (sPY != r - 1 && map[sPY + 1][sPX]->isTraspasable() && cam->distancia(sP + c) < distance) {
-        distance = cam->distancia(sP + c);
+    if (sPY != r - 1 && map[sPY + 1][sPX]->isTraspasable() && camino->distancia(sP + c) < distance) {
+        distance = camino->distancia(sP + c);
         dir = { 0,0,1 };
     }
-    if (sPX != 0 && map[sPY][sPX - 1]->isTraspasable() && cam->distancia(sP - 1) < distance) {
-        distance = cam->distancia(sP - 1);
+    if (sPX != 0 && map[sPY][sPX - 1]->isTraspasable() && camino->distancia(sP - 1) < distance) {
+        distance = camino->distancia(sP - 1);
         dir = { -1,0,0 };
     }
-    if (sPX != c - 1 && map[sPY][sPX + 1]->isTraspasable() && cam->distancia(sP + 1) < distance) {
-        distance = cam->distancia(sP+1);
+    if (sPX != c - 1 && map[sPY][sPX + 1]->isTraspasable() && camino->distancia(sP + 1) < distance) {
+        distance = camino->distancia(sP+1);
         dir = { 1,0,0 };
     }
 
@@ -113,7 +111,22 @@ void Labyrinth::gameOver() {
     heroe->restart();
     for (Enemigo* e : enemigos)
         e->restart();
+
     ib->gameOver();
+};
+
+
+
+void Labyrinth::restart() {
+    for (std::vector<Tile*> r : map)
+        for (Tile* t : r)
+            t->restart();
+
+    heroe->restart();
+    for (Enemigo* e : enemigos)
+        e->restart();
+
+    ib->restart();
 };
 
 void Labyrinth::setVisible(bool b) {
@@ -124,14 +137,20 @@ void Labyrinth::setVisible(bool b) {
     }
 
     heroe->setVisible(b);
+    heroe->setActive(b);
 
-    for (Enemigo* e : enemigos)
+    for (Enemigo* e : enemigos) {
         e->setVisible(b);
+        e->setActive(b);
+    }
 
-    for (FollowingLight* f : enemiesLights)
+    for (FollowingLight* f : enemiesLights) {
         f->setVisible(b);
+    }
 
     heroeLight->setVisible(b);
 
     ib->setVisible(b);
+
+    floorNode->setVisible(b);
 }

@@ -24,7 +24,8 @@ public:
 		SceneNode* n = node->createChildSceneNode();
 		heroe = new IG2Object(Vector3(0, 0, 0), n, mSM, "Sinbad.mesh");
 		n = node->createChildSceneNode();
-		enemigo = new IG2Object(Vector3(50, 0, 0), n, mSM, "facial.mesh");
+		enemigo = new IG2Object(Vector3(10, 0, 0), n, mSM, "ogrehead.mesh");
+		enemigo->setScale(Vector3(0.2,0.2,0.2));
 	}
 
 	~Cinematic() {
@@ -36,5 +37,10 @@ public:
 		heroe->setVisible(b);
 		enemigo->setVisible(b);
 		mLightNode->setVisible(b);
+	}
+
+	void resetCamera(SceneNode* camNode) {
+		camNode->setPosition(0, 10, 30);
+		camNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
 	}
 };

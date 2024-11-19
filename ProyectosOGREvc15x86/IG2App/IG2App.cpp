@@ -97,7 +97,7 @@ void IG2App::setupScene(void){
     // ---------------------------------------------
     //  Creating laberynth
 
-    map = new Labyrinth("../stage1.txt", mSM, mTrayMgr, mCamNode);
+    map = new Labyrinth("../stage1.txt", mSM, mTrayMgr);
     map->setup();
 
     addInputListener(map->getHeroe());
@@ -116,11 +116,14 @@ void IG2App::changeScene() {
     switch (_state) {
     case GAME:
         map->setVisible(true);
+        map->resetCamera(mCamNode);
         cinematic->setVisible(false);
         break;
     case MAIN_MENU:
         map->setVisible(false);
+        map->restart();
         cinematic->setVisible(true);
+        cinematic->resetCamera(mCamNode);
         break;
     default:
         break;

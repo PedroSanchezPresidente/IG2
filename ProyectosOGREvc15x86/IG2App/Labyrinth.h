@@ -18,7 +18,7 @@ class Labyrinth {
 private:
 	std::vector<std::vector<Tile*>> map;
     Grafo* g; //prueba
-    CaminoMasCorto* cam;
+    CaminoMasCorto* camino;
     const Vector3 ENEMY_SCALE = { 0.6, 0.6, 0.6 };
     const float ENEMY_Y_OFFSET = 10.0f;
     SceneNode* node = nullptr;
@@ -46,13 +46,9 @@ private:
        floorNode->setPosition(center);
     }
 
-    void setCameraPosition(SceneNode* camNode) {
-        camNode->setPosition(center.x, 2300, center.z + 1000);
-        camNode->lookAt(center, Ogre::Node::TS_WORLD);
-    }
 public:
 
-    Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager* tM, SceneNode* camNode);
+    Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager* tM);
 
 
     ~Labyrinth() {
@@ -108,9 +104,16 @@ public:
         ib->addPoints(p);
     }
 
+    void resetCamera(SceneNode* camNode) {
+        camNode->setPosition(center.x, 2300, center.z + 1000);
+        camNode->lookAt(center, Ogre::Node::TS_WORLD);
+    }
+
     Vector3 getDistance(Vector3 s);
 
     void gameOver();
+
+    void restart();
 
     void setVisible(bool b);
 };
