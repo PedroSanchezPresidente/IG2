@@ -62,6 +62,6 @@ void Heroe::addPoints(int p)
     lab->addPoints(p);
 }
 
-void Heroe::addKeyframe(NodeAnimationTrack* nodeAnimationTrack, Quaternion giro, Vector3 posicion) {
-    //animationState = entity->getAnimationState(anims[0]); //entity se construye sobre una malla
-}
+//void Heroe::addKeyframe(NodeAnimationTrack* nodeAnimationTrack, Quaternion giro, Vector3 posicion) {
+//    //animationState = entity->getAnimationState(anims[0]); //entity se construye sobre una malla
+//}

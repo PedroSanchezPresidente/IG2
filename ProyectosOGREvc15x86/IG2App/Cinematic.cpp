@@ -1,5 +1,7 @@
 #include "Cinematic.h"
 #include "OgreAnimation.h"
+#include "OgreAnimationTrack.h"
+#include "OgreKeyFrame.h"
 
 Cinematic::Cinematic(SceneManager* mSM) {
 	node = mSM->getRootSceneNode()->createChildSceneNode("cinematic");
@@ -16,7 +18,7 @@ Cinematic::Cinematic(SceneManager* mSM) {
 	SceneNode* n = node->createChildSceneNode();
 	heroe = new IG2Object(Vector3(0, 0, 0), n, mSM, "Sinbad.mesh");
 
-	AnimationState* animationState = heroe->getAnimationState(animsName[0]); //entity se construye sobre una malla
+	AnimationState* animationState = heroe->getAnimationState(animsName[_DANCE]); //entity se construye sobre una malla
 	animationState->setEnabled(true);
 	animationState->setLoop(true);
 
@@ -33,14 +35,27 @@ Cinematic::Cinematic(SceneManager* mSM) {
 }
 
 void Cinematic::frameRendered(const Ogre::FrameEvent& evt) {
-	heroe->getAnimationState(animsName[0])->addTime(evt.timeSinceLastEvent);
+	heroe->getAnimationState(animsName[_DANCE])->addTime(evt.timeSinceLastEvent);
 }
 
-void Cinematic::createAnimation(SceneManager* mSM ,string name, Real duration) {
+void Cinematic::addKeyframe(NodeAnimationTrack* track, Real time, Quaternion giro, Vector3 posicion, Vector3 scale)
+{
+	TransformKeyFrame* kf = track->createNodeKeyFrame(time);
+	kf->setTranslate(posicion);
+	kf->setRotation(giro);
+	kf->setScale(scale);
+}
+
+Animation*  Cinematic::createAnimation(SceneManager* mSM ,string name, Real duration) {
 	Animation* animation = mSM->createAnimation(name, duration);
 	animation->setInterpolationMode(Ogre::Animation::IM_SPLINE);
 	NodeAnimationTrack* track = animation->createNodeTrack(0);
 	track->setAssociatedNode(heroe->getSceneNode());
 
-	//addKeyframe...
+	// KF 0
+	addKeyframe(track, durStep * 0, Quaternion::IDENTITY, keyframePos, Vector3(1,1,1));
+
+	// KF 1
+	addKeyframe(track, durStep * 1, Quaternion(Ogre::Degree(90), Vector3::UNIT_Z), keyframePos + moveLength, Vector3(1, 1, 1));
+	
 }

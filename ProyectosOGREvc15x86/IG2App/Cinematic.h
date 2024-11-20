@@ -12,11 +12,26 @@ private:
 	SceneNode* floorNode;
 	std::vector<string> animsName = {"Dance", "RunBase", "RunTop"};
 
+	enum animation_id {
+		_DANCE = 0, 
+		_RUN_BASE,
+		_RUN_TOP,
+		_NONE
+	};
+
+#pragma region Walking Parameters
+
+	int moveLength = 50;
+	Real duration = 16.0;
+	Vector3 keyframePos = { 0, 0, 0 };
+	Real durStep = duration / 4.0;
+
+#pragma endregion
+
+
 	virtual void frameRendered(const Ogre::FrameEvent& evt);
 
-	void addKeyframe(NodeAnimationTrack* nodeAnimationTrack, Real time, Quaternion* giro, Vector3 posicion, Vector3 scale) {
-
-	}
+	void addKeyframe(NodeAnimationTrack* nodeAnimationTrack, Real time, Quaternion* giro, Vector3 posicion, Vector3 scale);
 
 public:
 	Cinematic(SceneManager* mSM);
@@ -38,5 +53,5 @@ public:
 		camNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
 	}
 
-	void createAnimation(SceneManager* mSM, string name, Real duration);
+	Animation* createAnimation(SceneManager* mSM, string name, Real duration);
 };
