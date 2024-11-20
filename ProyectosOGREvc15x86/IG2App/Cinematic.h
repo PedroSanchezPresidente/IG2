@@ -1,32 +1,25 @@
 #pragma once
 #include "IG2Object.h"
+#include <list>
 
-class Cinematic {
+class Cinematic : public OgreBites::InputListener {
 private:
 	IG2Object* heroe;
 	IG2Object* enemigo;
 	SceneNode* node = nullptr;
 	Light* light;
 	SceneNode* mLightNode;
-public:
-	Cinematic(SceneManager* mSM) {
-		node = mSM->getRootSceneNode()->createChildSceneNode("cinematic");
+	SceneNode* floorNode;
+	std::vector<string> animsName = {"Dance", "RunBase", "RunTop"};
 
-		Light* luz = mSM->createLight("Luz");
-		luz->setType(Ogre::Light::LT_DIRECTIONAL);
-		luz->setDiffuseColour(0.75, 0.75, 0.75);
+	virtual void frameRendered(const Ogre::FrameEvent& evt);
 
-		mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
-		//mLightNode = mCamNode->createChildSceneNode("nLuz");
-		mLightNode->attachObject(luz);
-		mLightNode->setDirection(Ogre::Vector3(0, -1, 0));
+	void addKeyframe(NodeAnimationTrack* nodeAnimationTrack, Real time, Quaternion* giro, Vector3 posicion, Vector3 scale) {
 
-		SceneNode* n = node->createChildSceneNode();
-		heroe = new IG2Object(Vector3(0, 0, 0), n, mSM, "Sinbad.mesh");
-		n = node->createChildSceneNode();
-		enemigo = new IG2Object(Vector3(10, 0, 0), n, mSM, "ogrehead.mesh");
-		enemigo->setScale(Vector3(0.2,0.2,0.2));
 	}
+
+public:
+	Cinematic(SceneManager* mSM);
 
 	~Cinematic() {
 		delete heroe;
@@ -37,10 +30,13 @@ public:
 		heroe->setVisible(b);
 		enemigo->setVisible(b);
 		mLightNode->setVisible(b);
+		floorNode->setVisible(b);
 	}
 
 	void resetCamera(SceneNode* camNode) {
 		camNode->setPosition(0, 10, 30);
 		camNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
 	}
+
+	void createAnimation(SceneManager* mSM, string name, Real duration);
 };

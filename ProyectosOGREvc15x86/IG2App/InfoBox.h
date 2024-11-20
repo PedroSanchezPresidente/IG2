@@ -41,7 +41,7 @@ public:
 
 	void restart() {
 		points = 0;
-		lives = 0;
+		lives = 3;
 		updateTextBoxText();
 	}
 

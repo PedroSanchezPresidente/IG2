@@ -32,7 +32,5 @@ public:
 		mNode->rotate(q);
 		distance = 0;
 	};
-
-	void addKeyframe(NodeAnimationTrack* nodeAnimationTrack, Quaternion giro, Vector3 posicion);
 };
 

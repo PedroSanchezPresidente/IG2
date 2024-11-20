@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Cinematic.cpp" />
     <ClCompile Include="Enemigo.cpp" />
     <ClCompile Include="FollowingLight.cpp" />
     <ClCompile Include="Heroe.cpp" />

@@ -154,6 +154,10 @@ class IG2Object : public OgreBites::InputListener {
         SceneNode* getSceneNode() const {
             return mNode;
         }
+
+        AnimationState* getAnimationState(string s) const {
+            return entity->getAnimationState(s);
+        }
     protected:
     
         // Scene node representing this element in the scene

@@ -108,6 +108,7 @@ void IG2App::setupScene(void){
     //----------------------------------------------
     //  Creating cinematic
     cinematic = new Cinematic(mSM);
+    addInputListener(cinematic);
 
     changeScene();
 }
@@ -120,8 +121,8 @@ void IG2App::changeScene() {
         cinematic->setVisible(false);
         break;
     case MAIN_MENU:
-        map->setVisible(false);
         map->restart();
+        map->setVisible(false);
         cinematic->setVisible(true);
         cinematic->resetCamera(mCamNode);
         break;
