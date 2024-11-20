@@ -31,7 +31,7 @@ private:
 
 	virtual void frameRendered(const Ogre::FrameEvent& evt);
 
-	void addKeyframe(NodeAnimationTrack* nodeAnimationTrack, Real time, Quaternion* giro, Vector3 posicion, Vector3 scale);
+	void addKeyframe(NodeAnimationTrack* nodeAnimationTrack, Real time, Quaternion giro, Vector3 posicion, Vector3 scale);
 
 public:
 	Cinematic(SceneManager* mSM);
