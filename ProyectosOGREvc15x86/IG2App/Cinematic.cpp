@@ -32,10 +32,17 @@ Cinematic::Cinematic(SceneManager* mSM) {
 	Ogre::Entity* plane = mSM->createEntity("FloorC");
 	plane->setMaterialName("FloorMaterial");
 	floorNode->attachObject(plane);
+
+	createAnimation(mSM, "Intro", duration);
+
+	animationState2 = mSM->createAnimationState("Intro");
+	animationState2->setLoop(true);
+	animationState2->setEnabled(true);
 }
 
 void Cinematic::frameRendered(const Ogre::FrameEvent& evt) {
-	heroe->getAnimationState(animsName[_DANCE])->addTime(evt.timeSinceLastEvent);
+	//heroe->getAnimationState(animsName[_DANCE])->addTime(evt.timeSinceLastEvent);
+	animationState2->addTime(evt.timeSinceLastEvent);
 }
 
 void Cinematic::addKeyframe(NodeAnimationTrack* track, Real time, Quaternion giro, Vector3 posicion, Vector3 scale)
@@ -56,6 +63,7 @@ Animation*  Cinematic::createAnimation(SceneManager* mSM ,string name, Real dura
 	addKeyframe(track, durStep * 0, Quaternion::IDENTITY, keyframePos, Vector3(1,1,1));
 
 	// KF 1
-	addKeyframe(track, durStep * 1, Quaternion(Ogre::Degree(90), Vector3::UNIT_Z), keyframePos + moveLength, Vector3(1, 1, 1));
-	
+	addKeyframe(track, durStep * 1, Quaternion(Ogre::Degree(90), Vector3::UNIT_Y), { keyframePos.x + moveLength, 0, 0 }, Vector3(1, 1, 1));
+
+	return animation;
 }

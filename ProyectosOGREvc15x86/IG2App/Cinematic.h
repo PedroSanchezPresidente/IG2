@@ -10,18 +10,20 @@ private:
 	Light* light;
 	SceneNode* mLightNode;
 	SceneNode* floorNode;
-	std::vector<string> animsName = {"Dance", "RunBase", "RunTop"};
+	std::vector<string> animsName = {"Dance", "RunBase", "RunTop", "Intro"};
+	AnimationState* animationState2;
 
 	enum animation_id {
 		_DANCE = 0, 
 		_RUN_BASE,
 		_RUN_TOP,
+		_INTRO,
 		_NONE
 	};
 
 #pragma region Walking Parameters
 
-	int moveLength = 50;
+	int moveLength = 10;
 	Real duration = 16.0;
 	Vector3 keyframePos = { 0, 0, 0 };
 	Real durStep = duration / 4.0;
