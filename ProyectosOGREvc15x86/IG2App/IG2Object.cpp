@@ -109,3 +109,11 @@ const AxisAlignedBox& IG2Object::getAABB(){
     return mNode->_getWorldAABB();
 }
 
+void IG2Object::attachObjectToBone(string s, MovableObject* o) {
+    entity->attachObjectToBone(s, o);
+}
+
+void IG2Object::detachObjectFromBone(MovableObject* o) {
+    entity->detachObjectFromBone(o);
+}
+

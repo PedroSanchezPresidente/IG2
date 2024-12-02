@@ -18,13 +18,10 @@ Cinematic::Cinematic(SceneManager* mSM) {
 	SceneNode* n = node->createChildSceneNode();
 	heroe = new IG2Object(Vector3(0, 0, 0), n, mSM, "Sinbad.mesh");
 
-	AnimationState* animationState = heroe->getAnimationState(animsName[_DANCE]); //entity se construye sobre una malla
-	animationState->setEnabled(true);
-	animationState->setLoop(true);
 
 	n = node->createChildSceneNode();
 	enemigo = new IG2Object(Vector3(10, 0, 0), n, mSM, "ogrehead.mesh");
-	enemigo->setScale(Vector3(0.2, 0.2, 0.2));
+	enemigo->setScale(enemigoScale);
 
 
 	floorNode = mSM->getRootSceneNode()->createChildSceneNode("floorC");
@@ -33,16 +30,76 @@ Cinematic::Cinematic(SceneManager* mSM) {
 	plane->setMaterialName("FloorMaterial");
 	floorNode->attachObject(plane);
 
-	createAnimation(mSM, "Intro", duration);
+	createAnimationHeroe(mSM, "Intro_Hero", duration);
+	createAnimationEnemigo(mSM, "Intro_Foe", duration);
 
-	animationState2 = mSM->createAnimationState("Intro");
-	animationState2->setLoop(true);
-	animationState2->setEnabled(true);
+	animationStateHeroe = mSM->createAnimationState("Intro_Hero");
+	animationStateHeroe->setLoop(true);
+	animationStateHeroe->setEnabled(true);
+
+	animationStateEnemigo = mSM->createAnimationState("Intro_Foe");
+	animationStateEnemigo->setLoop(true);
+	animationStateEnemigo->setEnabled(true);
+
+	changeAnimation(curr_anim_state);
+
+	AnimationStateSet* aux = heroe->getAllAnimationStates();
+	auto it = aux->getAnimationStateIterator().begin();
+	while (it != aux->getAnimationStateIterator().end()) {
+		auto s = it->first;
+		++it;
+		cout << "Animation name: " << s << endl;
+	}
+
+	swordR = mSM->createEntity("Sword.mesh");
+	swordL = mSM->createEntity("Sword.mesh");
+	timer->reset();
 }
 
 void Cinematic::frameRendered(const Ogre::FrameEvent& evt) {
-	//heroe->getAnimationState(animsName[_DANCE])->addTime(evt.timeSinceLastEvent);
-	animationState2->addTime(evt.timeSinceLastEvent);
+
+	if (nextTimer[curr_anim_state] <= timer->getMilliseconds()) {
+		curr_anim_state++;
+		changeAnimation(curr_anim_state);
+		timer->reset();
+		if (curr_anim_state == _HIDE_SWORDS_S) {
+			curr_anim_state = _DANCE_S;
+			changeAnimation(curr_anim_state);
+		}
+	}
+
+	animationStateHeroe->addTime(anim_speed * evt.timeSinceLastEvent);
+	animationStateEnemigo->addTime(anim_speed * evt.timeSinceLastEvent);
+	heroe->getAnimationState(animsName[_DANCE])->addTime(anim_speed * evt.timeSinceLastEvent);
+	heroe->getAnimationState(animsName[_RUN_BASE])->addTime(anim_speed * evt.timeSinceLastEvent);
+	heroe->getAnimationState(animsName[_RUN_TOP])->addTime(anim_speed * evt.timeSinceLastEvent);
+
+}
+
+void Cinematic::changeAnimation(int state) {
+	switch (state) {
+	case _DANCE_S:
+		heroe->getAnimationState(animsName[_RUN_TOP])->setEnabled(false);
+		heroe->getAnimationState(animsName[_RUN_BASE])->setEnabled(false);
+		heroe->getAnimationState(animsName[_DANCE])->setEnabled(true);
+		heroe->getAnimationState(animsName[_DANCE])->setLoop(true);
+		break;
+	case _RUN_S:
+		heroe->getAnimationState(animsName[_RUN_TOP])->setEnabled(true);
+		heroe->getAnimationState(animsName[_RUN_BASE])->setEnabled(true);
+		heroe->getAnimationState(animsName[_RUN_TOP])->setLoop(true);
+		heroe->getAnimationState(animsName[_RUN_BASE])->setLoop(true);
+		heroe->getAnimationState(animsName[_DANCE])->setEnabled(false);
+		break;
+	case _SHOW_SWORDS_S:
+		heroe->attachObjectToBone("Handle.R", swordR);
+		heroe->attachObjectToBone("Handle.L", swordL);
+		break;
+	case _HIDE_SWORDS_S:
+		heroe->detachObjectFromBone(swordR);
+		heroe->detachObjectFromBone(swordL);
+		break;
+	}
 }
 
 void Cinematic::addKeyframe(NodeAnimationTrack* track, Real time, Quaternion giro, Vector3 posicion, Vector3 scale)
@@ -53,17 +110,82 @@ void Cinematic::addKeyframe(NodeAnimationTrack* track, Real time, Quaternion gir
 	kf->setScale(scale);
 }
 
-Animation*  Cinematic::createAnimation(SceneManager* mSM ,string name, Real duration) {
+Animation*  Cinematic::createAnimationHeroe(SceneManager* mSM ,string name, Real duration) {
 	Animation* animation = mSM->createAnimation(name, duration);
 	animation->setInterpolationMode(Ogre::Animation::IM_SPLINE);
 	NodeAnimationTrack* track = animation->createNodeTrack(0);
 	track->setAssociatedNode(heroe->getSceneNode());
 
+	keyframePos = { 0,0,0 };
 	// KF 0
-	addKeyframe(track, durStep * 0, Quaternion::IDENTITY, keyframePos, Vector3(1,1,1));
+	addKeyframe(track, durStep * 1, Quaternion::IDENTITY, keyframePos, heroeScale);
 
 	// KF 1
-	addKeyframe(track, durStep * 1, Quaternion(Ogre::Degree(90), Vector3::UNIT_Y), { keyframePos.x + moveLength, 0, 0 }, Vector3(1, 1, 1));
+	addKeyframe(track, durStep * 1 + durStep / 5, heroe->getOrientation().getRotationTo({1,0,0}), keyframePos, heroeScale);
+
+	keyframePos.x += 10;
+	// KF 2
+	addKeyframe(track, durStep * 2, heroe->getOrientation().getRotationTo({ 1,0,0 }), keyframePos, heroeScale);
+
+	// KF 3
+	addKeyframe(track, durStep * 2 + durStep / 5, heroe->getOrientation().getRotationTo({ -1,0,0 }), keyframePos, heroeScale);
+
+	keyframePos.x += -10;
+	// KF 4
+	addKeyframe(track, durStep * 3, heroe->getOrientation().getRotationTo({ -1,0,0 }), keyframePos, heroeScale);
+
+	keyframePos.x += -10;
+	// KF 5
+	addKeyframe(track, durStep * 4, heroe->getOrientation().getRotationTo({ -1,0,0 }), keyframePos, heroeScale);
+
+	// KF 6
+	addKeyframe(track, durStep * 4 + durStep / 5, heroe->getOrientation().getRotationTo({ 1,0,0 }), keyframePos, heroeScale);
+
+	keyframePos.x += 10;
+	// KF 7
+	addKeyframe(track, durStep * 5 - durStep / 5, heroe->getOrientation().getRotationTo({ 1,0,0 }), keyframePos, heroeScale);
+
+	// KF 8
+	addKeyframe(track, durStep * 5, heroe->getOrientation().getRotationTo({ 0,0,1 }), keyframePos, heroeScale);
+
+	return animation;
+}
+
+Animation* Cinematic::createAnimationEnemigo(SceneManager* mSM, string name, Real duration) {
+	Animation* animation = mSM->createAnimation(name, duration);
+	animation->setInterpolationMode(Ogre::Animation::IM_SPLINE);
+	NodeAnimationTrack* track = animation->createNodeTrack(0);
+	track->setAssociatedNode(enemigo->getSceneNode());
+
+	keyframePos = { -20,0,0 };
+	// KF 0
+	addKeyframe(track, durStep * 0, enemigo->getOrientation().getRotationTo({ 1,0,0 }), keyframePos, enemigoScale);
+
+	keyframePos.x += 10;
+	// KF 1
+	addKeyframe(track, durStep * 1, enemigo->getOrientation().getRotationTo({ 1,0,0 }), keyframePos, enemigoScale);
+
+	keyframePos.x += 10;
+	// KF 2
+	addKeyframe(track, durStep * 2, enemigo->getOrientation().getRotationTo({ 1,0,0 }), keyframePos, enemigoScale);
+
+	// KF 3
+	addKeyframe(track, durStep * 2 + durStep / 5, enemigo->getOrientation().getRotationTo({ -1,0,0 }), keyframePos, enemigoScale);
+
+	keyframePos.x += -10;
+	// KF 4
+	addKeyframe(track, durStep * 3, enemigo->getOrientation().getRotationTo({ -1,0,0 }), keyframePos, enemigoScale);
+
+	keyframePos.x += -10;
+	// KF 5
+	addKeyframe(track, durStep * 4, enemigo->getOrientation().getRotationTo({ -1,0,0 }), keyframePos, enemigoScale);
+
+	// KF 6
+	addKeyframe(track, durStep * 4.0 + durStep / 5, enemigo->getOrientation().getRotationTo({ 1,0,0 }), keyframePos, enemigoScale);
+
+	keyframePos.x += +10;
+	// KF 7
+	addKeyframe(track, durStep * 5, enemigo->getOrientation().getRotationTo({ 1,0,0 }), keyframePos, {0,0,0});
 
 	return animation;
 }

@@ -162,6 +162,11 @@ class IG2Object : public OgreBites::InputListener {
         AnimationStateSet* getAllAnimationStates() const {
             return entity->getAllAnimationStates();
         }
+
+        void attachObjectToBone(string s, MovableObject* o);
+
+        void detachObjectFromBone(MovableObject* o);
+
     protected:
     
         // Scene node representing this element in the scene
