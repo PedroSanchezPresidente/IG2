@@ -1,4 +1,5 @@
 #include "Labyrinth.h"
+#include "OgreParticleSystem.h"
 
 Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager* tM) {
     ifstream file(routeName);
@@ -44,6 +45,12 @@ Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager
                 e->setScale(ENEMY_SCALE);
                 enemigos.push_back(e);
                 enemiesLights.push_back(new FollowingLight(e->getSceneNode(), mSM, Light::LightTypes::LT_POINT, "enemyLight" + to_string(enemiesLights.size() - 1), Ogre::ColourValue::Red, Vector3(0, -10, 0)));
+            }
+            else if (ch == 's') {
+                map[i][j] = new Perla(Vector3(x, 0, z), n, mSM, pearlMat, 10, true, true, Vector3(0.1, 0.1, 0.1));
+                smokeParticles.push_back(mSM->createParticleSystem("psSmoke" + to_string(smokeParticles.size()), "SmokeParticleLab"));
+                smokeParticles[smokeParticles.size()-1]->setEmitting(true);
+                map[i][j]->getSceneNode()->attachObject(smokeParticles[smokeParticles.size() - 1]);
             }
 
             if (ch != 'x') {

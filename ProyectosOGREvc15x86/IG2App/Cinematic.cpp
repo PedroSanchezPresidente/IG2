@@ -2,6 +2,7 @@
 #include "OgreAnimation.h"
 #include "OgreAnimationTrack.h"
 #include "OgreKeyFrame.h"
+#include "OgreParticleSystem.h"
 
 Cinematic::Cinematic(SceneManager* mSM) {
 	node = mSM->getRootSceneNode()->createChildSceneNode("cinematic");
@@ -11,7 +12,6 @@ Cinematic::Cinematic(SceneManager* mSM) {
 	luz->setDiffuseColour(0.75, 0.75, 0.75);
 
 	mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
-	//mLightNode = mCamNode->createChildSceneNode("nLuz");
 	mLightNode->attachObject(luz);
 	mLightNode->setDirection(Ogre::Vector3(0, -1, 0));
 
@@ -54,6 +54,19 @@ Cinematic::Cinematic(SceneManager* mSM) {
 	swordR = mSM->createEntity("Sword.mesh");
 	swordL = mSM->createEntity("Sword.mesh");
 	timer->reset();
+
+	smokeParticles = mSM->createParticleSystem("psSmoke", "SmokeParticle");
+	smokeParticles->setEmitting(true);
+	enemigo->getSceneNode()->attachObject(smokeParticles);
+	
+	int distFirePart = 3;
+	for (int i = 0; i < 15; i++) {
+		fireParticles.push_back(mSM->createParticleSystem("psFire" + to_string(i), "FireParticle"));
+		fireParticles[i]->setEmitting(true);
+		n = node->createChildSceneNode();
+		n->setPosition({ -20.f + i* distFirePart,0,-10 });
+		n->attachObject(fireParticles[i]);
+	}
 }
 
 void Cinematic::frameRendered(const Ogre::FrameEvent& evt) {
@@ -70,9 +83,12 @@ void Cinematic::frameRendered(const Ogre::FrameEvent& evt) {
 
 	animationStateHeroe->addTime(anim_speed * evt.timeSinceLastEvent);
 	animationStateEnemigo->addTime(anim_speed * evt.timeSinceLastEvent);
-	heroe->getAnimationState(animsName[_DANCE])->addTime(anim_speed * evt.timeSinceLastEvent);
-	heroe->getAnimationState(animsName[_RUN_BASE])->addTime(anim_speed * evt.timeSinceLastEvent);
-	heroe->getAnimationState(animsName[_RUN_TOP])->addTime(anim_speed * evt.timeSinceLastEvent);
+	if(curr_anim_state == _DANCE_S)
+		heroe->getAnimationState(animsName[_DANCE])->addTime(anim_speed * evt.timeSinceLastEvent);
+	else {
+		heroe->getAnimationState(animsName[_RUN_BASE])->addTime(anim_speed * evt.timeSinceLastEvent);
+		heroe->getAnimationState(animsName[_RUN_TOP])->addTime(anim_speed * evt.timeSinceLastEvent);
+	}
 
 }
 

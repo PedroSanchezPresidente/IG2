@@ -16,6 +16,8 @@ private:
 	AnimationState* animationStateEnemigo;
 	Entity* swordR;
 	Entity* swordL;
+	ParticleSystem* smokeParticles;
+	std::vector<ParticleSystem*> fireParticles;
 
 	enum animation_id {
 		_DANCE = 0, 
@@ -38,11 +40,11 @@ private:
 	Real duration = 5.0;
 	Vector3 keyframePos = { 0, 0, 0 };
 	Real durStep = duration / 5;
-	float anim_speed = 5;
+	float anim_speed = 2.5;
 	Vector3 heroeScale = {1,1,1};
 	Vector3 enemigoScale = { 0.15, 0.15, 0.15 };
 	Ogre::Timer* timer = new Ogre::Timer();
-	std::vector<int> nextTimer = { 2200, 2800, 6800};
+	std::vector<int> nextTimer = { 2500, 2000, 3900};
 	int curr_anim_state = _DANCE_S;
 
 #pragma endregion

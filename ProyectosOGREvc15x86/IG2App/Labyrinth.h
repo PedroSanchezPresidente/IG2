@@ -37,6 +37,8 @@ private:
 
     std::string floorMat, pearlMat, wallMat, bodyMat1, bodyMat2, helMat;
 
+    std::vector<ParticleSystem*> smokeParticles;
+
     void createFloor(SceneManager* mSM) {
        floorNode = mSM->getRootSceneNode()->createChildSceneNode("floor");
        Ogre::MeshManager::getSingleton().createPlane("Floor", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Plane(Vector3::UNIT_Y, -50), r * tileWidth - tileWidth, c * tileHeight - tileHeight, 100, 80, true, 1, r, c, Vector3::UNIT_Z);
