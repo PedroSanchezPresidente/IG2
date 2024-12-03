@@ -11,16 +11,28 @@ private:
 	IG2Object* heroe;
 	IG2Object* enemigo;
 	SceneNode* node = nullptr;
+
 	Light* light;
 	SceneNode* mLightNode;
+
 	SceneNode* floorNode;
-	std::vector<string> animsName = {"Dance", "RunBase", "RunTop"};
+
 	AnimationState* animationStateHeroe;
 	AnimationState* animationStateEnemigo;
+
 	Entity* swordR;
 	Entity* swordL;
+
 	ParticleSystem* smokeParticles;
 	std::vector<ParticleSystem*> fireParticles;
+	const int dist_fire = 3;
+	const int num_fire = 15;
+
+	std::vector<string> animsName = {
+		"Dance",
+		"RunBase",
+		"RunTop"
+	};
 
 	enum animation_id {
 		_DANCE = 0, 
@@ -31,23 +43,34 @@ private:
 
 	enum animation_state {
 		_DANCE_S = 0,
-		_RUN_S,
-		_SHOW_SWORDS_S,
-		_HIDE_SWORDS_S,
+		_RUN_HIDE_S,
+		_RUN_SHOW_S,
+		_END_S,
 		_NONE_S
 	};
+
 
 #pragma region Walking Parameters
 
 	int moveLength = 10;
-	Real duration = 5.0;
+	//Duracion de la animacion
+	Real duration = 21;
+	Real turn_vel = 0.2;
+	//Poscion del heroe
 	Vector3 keyframePos = { 0, 0, 0 };
 	Real durStep = duration / 5;
-	float anim_speed = 2.5;
+	Real anim_speed = 1.5;
 	Vector3 heroeScale = {1,1,1};
 	Vector3 enemigoScale = { 0.15, 0.15, 0.15 };
 	Ogre::Timer* timer = new Ogre::Timer();
-	std::vector<int> nextTimer = { 2500, 2000, 3900};
+
+
+	// Lista de tiempos entre animaciones
+	// Bailar - caminar
+	// Sin espadas - con espadas
+	// con espadas - fin cinematica
+	std::vector<int> nextTimer = {(int)durStep * 1000 , (int)durStep * 1000 , (int)(duration - durStep * 2) * 1000};
+
 	int curr_anim_state = _DANCE_S;
 
 #pragma endregion
@@ -97,7 +120,6 @@ public:
 		animationStateEnemigo->setTimePosition(0);
 		timer->reset();
 		curr_anim_state = _DANCE_S;
-		changeAnimation(_HIDE_SWORDS_S);
 		changeAnimation(curr_anim_state);
 
 		for(string s : animsName)
