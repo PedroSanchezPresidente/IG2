@@ -1,5 +1,4 @@
 #include "Labyrinth.h"
-#include "OgreParticleSystem.h"
 
 Labyrinth::Labyrinth(string routeName, SceneManager* mSM, OgreBites::TrayManager* tM) {
     ifstream file(routeName);
@@ -160,4 +159,9 @@ void Labyrinth::setVisible(bool b) {
     ib->setVisible(b);
 
     floorNode->setVisible(b);
+
+    for (ParticleSystem* p : smokeParticles) {
+        p->setEmitting(b);
+        p->clear();
+    }
 }

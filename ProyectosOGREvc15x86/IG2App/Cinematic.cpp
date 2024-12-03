@@ -2,7 +2,6 @@
 #include "OgreAnimation.h"
 #include "OgreAnimationTrack.h"
 #include "OgreKeyFrame.h"
-#include "OgreParticleSystem.h"
 
 Cinematic::Cinematic(SceneManager* mSM) {
 	node = mSM->getRootSceneNode()->createChildSceneNode("cinematic");
@@ -43,14 +42,6 @@ Cinematic::Cinematic(SceneManager* mSM) {
 
 	changeAnimation(curr_anim_state);
 
-	AnimationStateSet* aux = heroe->getAllAnimationStates();
-	auto it = aux->getAnimationStateIterator().begin();
-	while (it != aux->getAnimationStateIterator().end()) {
-		auto s = it->first;
-		++it;
-		cout << "Animation name: " << s << endl;
-	}
-
 	swordR = mSM->createEntity("Sword.mesh");
 	swordL = mSM->createEntity("Sword.mesh");
 	timer->reset();
@@ -70,26 +61,27 @@ Cinematic::Cinematic(SceneManager* mSM) {
 }
 
 void Cinematic::frameRendered(const Ogre::FrameEvent& evt) {
-
-	if (nextTimer[curr_anim_state] <= timer->getMilliseconds()) {
-		curr_anim_state++;
-		changeAnimation(curr_anim_state);
-		timer->reset();
-		if (curr_anim_state == _HIDE_SWORDS_S) {
-			curr_anim_state = _DANCE_S;
+	if (_active) {
+		if (nextTimer[curr_anim_state] <= timer->getMilliseconds()) {
+			curr_anim_state++;
 			changeAnimation(curr_anim_state);
+			timer->reset();
+			if (curr_anim_state == _HIDE_SWORDS_S) {
+				curr_anim_state = _DANCE_S;
+				changeAnimation(curr_anim_state); 
+				heroe->getAnimationState(animsName[_DANCE])->setTimePosition(0);
+			}
+		}
+
+		animationStateHeroe->addTime(anim_speed * evt.timeSinceLastEvent);
+		animationStateEnemigo->addTime(anim_speed * evt.timeSinceLastEvent);
+		if (curr_anim_state == _DANCE_S)
+			heroe->getAnimationState(animsName[_DANCE])->addTime(anim_speed * evt.timeSinceLastEvent);
+		else {
+			heroe->getAnimationState(animsName[_RUN_BASE])->addTime(anim_speed * evt.timeSinceLastEvent);
+			heroe->getAnimationState(animsName[_RUN_TOP])->addTime(anim_speed * evt.timeSinceLastEvent);
 		}
 	}
-
-	animationStateHeroe->addTime(anim_speed * evt.timeSinceLastEvent);
-	animationStateEnemigo->addTime(anim_speed * evt.timeSinceLastEvent);
-	if(curr_anim_state == _DANCE_S)
-		heroe->getAnimationState(animsName[_DANCE])->addTime(anim_speed * evt.timeSinceLastEvent);
-	else {
-		heroe->getAnimationState(animsName[_RUN_BASE])->addTime(anim_speed * evt.timeSinceLastEvent);
-		heroe->getAnimationState(animsName[_RUN_TOP])->addTime(anim_speed * evt.timeSinceLastEvent);
-	}
-
 }
 
 void Cinematic::changeAnimation(int state) {

@@ -1,10 +1,13 @@
 #pragma once
 #include <OgreTimer.h>
 #include "IG2Object.h"
+#include "OgreParticleSystem.h"
 #include <list>
 
 class Cinematic : public OgreBites::InputListener {
 private:
+	bool _active = true;
+
 	IG2Object* heroe;
 	IG2Object* enemigo;
 	SceneNode* node = nullptr;
@@ -73,10 +76,31 @@ public:
 		enemigo->setVisible(b);
 		mLightNode->setVisible(b);
 		floorNode->setVisible(b);
+
+		smokeParticles->setEmitting(b);
+		smokeParticles->clear();
+
+		for (ParticleSystem* p : fireParticles) {
+			p->setEmitting(b);
+			p->clear();
+		}
+		_active = b;
 	}
 
 	void resetCamera(SceneNode* camNode) {
 		camNode->setPosition(0, 10, 30);
 		camNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
+	}
+
+	void restartAnim() {
+		animationStateHeroe->setTimePosition(0);
+		animationStateEnemigo->setTimePosition(0);
+		timer->reset();
+		curr_anim_state = _DANCE_S;
+		changeAnimation(_HIDE_SWORDS_S);
+		changeAnimation(curr_anim_state);
+
+		for(string s : animsName)
+			heroe->getAnimationState(s)->setTimePosition(0);
 	}
 };

@@ -11,6 +11,7 @@
 #include <cmath>
 #include <list>
 #include "CaminoMasCorto.h"
+#include "OgreParticleSystem.h"
 
 using namespace std;
 

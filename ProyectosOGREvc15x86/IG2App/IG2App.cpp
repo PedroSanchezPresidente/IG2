@@ -65,6 +65,7 @@ void IG2App::setup(void){
     
     // Adds the listener for this object
     addInputListener(this);
+
     setupScene();
 }
 
@@ -93,6 +94,10 @@ void IG2App::setupScene(void){
     addInputListener(mCamMgr);
     mCamMgr->setStyle(OgreBites::CS_ORBIT);
 
+    Plane plane;
+    plane.d = 1000;
+    plane.normal = Ogre::Vector3::UNIT_Y;
+    mSM->setSkyPlane(true, plane, "Skyplane", 1500, 50, true, 0.5, 50, 50);
 
     // ---------------------------------------------
     //  Creating laberynth
@@ -119,12 +124,15 @@ void IG2App::changeScene() {
         map->setVisible(true);
         map->resetCamera(mCamNode);
         cinematic->setVisible(false);
+        mSM->setSkyPlaneEnabled(true);
         break;
     case MAIN_MENU:
+        cinematic->restartAnim();
         map->restart();
         map->setVisible(false);
         cinematic->setVisible(true);
         cinematic->resetCamera(mCamNode);
+        mSM->setSkyPlaneEnabled(false);
         break;
     default:
         break;

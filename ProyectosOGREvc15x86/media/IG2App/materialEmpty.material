@@ -8,6 +8,10 @@ material FloorMaterial {
 				texture BumpyMetal.jpg
 				colour_op modulate
 			}
+			texture_unit {
+				texture lightMap.jpg
+				colour_op modulate*
+			}
 		}
 	}
 	technique { Second technique
@@ -121,6 +125,21 @@ material Smoke{
 			texture_unit{
 				texture smoke.png
 				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Skyplane{
+	technique{
+		pass{
+			ambient 0.5 0.5 0.5
+			diffuse 1.0 1.0 1.0
+			lighting off
+			texture_unit{
+				texture spacesky.jpg
+				colour_op modulate
+				scroll_anim 0.1 0.1
 			}
 		}
 	}
