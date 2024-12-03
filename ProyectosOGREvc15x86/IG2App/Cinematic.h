@@ -10,6 +10,7 @@ private:
 
 	IG2Object* heroe;
 	IG2Object* enemigo;
+	IG2Object* moon;
 	SceneNode* node = nullptr;
 
 	Light* light;
@@ -97,6 +98,7 @@ public:
 	void setVisible(bool b) {
 		heroe->setVisible(b);
 		enemigo->setVisible(b);
+		moon->setVisible(b);
 		mLightNode->setVisible(b);
 		floorNode->setVisible(b);
 

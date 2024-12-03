@@ -144,3 +144,100 @@ material Skyplane{
 		}
 	}
 }
+
+// SHADER - SKY 
+vertex_program SpaceSkyZoomLightVS glsl{
+	source SpaceSkyZoomLightVS.glsl
+	default_params{
+		param_named_auto modelViewProjMat worldviewproj_matrix
+		param_named_auto sintime sintime_0_2pi 15;
+	}
+}
+
+fragment_program SpaceSkyZoomLightFS glsl{
+	source SpaceSkyZoomLightFS.glsl
+	default_params{
+		param_named texturaL int 0
+		param_named texturaM int 1
+		param_named BF float 0.5
+		param_named minL float 0.0
+		param_named maxL float 1.0
+	}
+}
+
+material spaceSkyZoomLightShader{
+    technique {
+        pass {
+            lighting off
+
+            vertex_program_ref SpaceSkyZoomLightVS {
+            }
+
+            fragment_program_ref SpaceSkyZoomLightFS {
+            }
+
+            texture_unit {
+				texture spacesky.jpg 2d
+                tex_address_mode clamp
+            }
+
+            texture_unit {
+				texture lightMap.jpg 2d
+                tex_address_mode clamp
+            }
+        }
+    }
+}
+
+// SHADER ESFERA
+
+vertex_program SphereHolesVS glsl
+{
+	source SphereHolesVS.glsl
+	default_params
+	{
+	param_named_auto modelViewProjMat worldviewproj_matrix
+	}
+}
+fragment_program SphereHolesFS glsl
+{
+	source SphereHolesFS.glsl
+	default_params
+	{ 
+		param_named textureL int 0
+		param_named textureM int 1
+		param_named textureN int 2
+		param_named intLuzAmb float 1.0
+		param_named_auto flipping render_target_flipping
+	}
+}
+
+material SphereHoles {
+	technique {
+		pass {
+			lighting off
+			vertex_program_ref SphereHolesVS {
+			}
+			fragment_program_ref SphereHolesFS {
+			}
+
+			cull_hardware none
+			cull_software none
+
+			texture_unit {
+				texture corrosion.jpg 2d 
+				tex_address_mode clamp
+			}
+
+			texture_unit {
+				texture BumpyMetal.jpg 2d 
+				tex_address_mode clamp
+			}
+
+			texture_unit {
+				texture Material_dirt.jpg 2d
+				tex_address_mode clamp
+			}
+		}
+	}
+}

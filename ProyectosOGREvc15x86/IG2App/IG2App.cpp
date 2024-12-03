@@ -93,11 +93,13 @@ void IG2App::setupScene(void){
     mCamMgr = new OgreBites::CameraMan(mCamNode);
     addInputListener(mCamMgr);
     mCamMgr->setStyle(OgreBites::CS_ORBIT);
-
+    // --------------------------------------------
+    // Creating 'sky'
     Plane plane;
     plane.d = 1000;
     plane.normal = Ogre::Vector3::UNIT_Y;
-    mSM->setSkyPlane(true, plane, "Skyplane", 1500, 50, true, 0.5, 50, 50);
+    mSM->setSkyPlane(true, plane, "spaceSkyZoomLightShader", 40, 1);
+   //  mSM->setSkyPlane(true, plane, "Skyplane", 1500, 70, true, 2, 50, 50);
 
     // ---------------------------------------------
     //  Creating laberynth
@@ -112,6 +114,7 @@ void IG2App::setupScene(void){
 
     //----------------------------------------------
     //  Creating cinematic
+
     cinematic = new Cinematic(mSM);
     addInputListener(cinematic);
 

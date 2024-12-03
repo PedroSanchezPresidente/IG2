@@ -21,9 +21,13 @@ Cinematic::Cinematic(SceneManager* mSM) {
 
 	// Creamos cabeza
 	n = node->createChildSceneNode();
-	enemigo = new IG2Object(Vector3(10, 0, 0), n, mSM, "ogrehead.mesh");
+	enemigo = new IG2Object(Vector3(-20, 0, 0), n, mSM, "ogrehead.mesh");
 	enemigo->setScale(enemigoScale);
 
+	//Creamos luna
+	moon = new IG2Object(Vector3(0, 0, -10), node->createChildSceneNode(), mSM, "uv_sphere.mesh");
+	moon->setScale({ 0.05, 0.05, 0.05 });
+	moon->setMaterialName("SphereHoles");
 	// Creamos suelo
 	floorNode = mSM->getRootSceneNode()->createChildSceneNode("floorC");
 	Ogre::MeshManager::getSingleton().createPlane("FloorC", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Plane(Vector3::UNIT_Y, -5), 100, 40, 100, 80, true, 1, 20, 8, Vector3::UNIT_Z);
@@ -61,7 +65,7 @@ Cinematic::Cinematic(SceneManager* mSM) {
 		fireParticles.push_back(mSM->createParticleSystem("psFire" + to_string(i), "FireParticle"));
 		fireParticles[i]->setEmitting(true);
 		n = node->createChildSceneNode();
-		n->setPosition({ -20.f + i * dist_fire ,0,-10 });
+		n->setPosition({ -20.f + i * dist_fire ,0,-15 });
 		n->attachObject(fireParticles[i]);
 	}
 }
