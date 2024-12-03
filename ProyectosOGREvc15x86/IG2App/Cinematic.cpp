@@ -174,25 +174,25 @@ Animation* Cinematic::createAnimationEnemigo(SceneManager* mSM, string name, Rea
 	track->setAssociatedNode(enemigo->getSceneNode());
 	Vector3 headPos = { -20, 0, 0 };
 
-	// KF 0 - derecha del 
+	// KF 0 - derecha
 	addKeyframe(track, durStep * 0, enemigo->getOrientation().getRotationTo({ 1,0,0 }), headPos, enemigoScale);
 
 	headPos.x += 20;
-	// KF 1
+	// KF 1 - centro
 	addKeyframe(track, durStep * 2, enemigo->getOrientation().getRotationTo({ 1,0,0 }), headPos, enemigoScale);
 
-	// KF 3
+	// KF 2 - giro
 	addKeyframe(track, durStep * 2 + 0.01, enemigo->getOrientation().getRotationTo({ -1,0,0 }), headPos, enemigoScale);
 
 	headPos.x += -20;
-	// KF 4
+	// KF 3 - izquierda
 	addKeyframe(track, durStep * 4, enemigo->getOrientation().getRotationTo({ -1,0,0 }), headPos, enemigoScale);
 
-	// KF 6
+	// KF 4	- giro
 	addKeyframe(track, durStep * 4 , enemigo->getOrientation().getRotationTo({ 1,0,0 }), headPos, enemigoScale);
 
 	headPos.x += 20;
-	// KF 7
+	// KF 5 - centro y se hace pequeño
 	addKeyframe(track, durStep * 5, enemigo->getOrientation().getRotationTo({ 1,0,0 }), headPos, {0,0,0});
 
 	return animation;
