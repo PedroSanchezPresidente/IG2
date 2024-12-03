@@ -189,7 +189,7 @@ material spaceSkyZoomLightShader{
     }
 }
 
-// SHADER ESFERA
+// SHADER - ESFERA
 
 vertex_program SphereHolesVS glsl
 {
@@ -240,4 +240,52 @@ material SphereHoles {
 			}
 		}
 	}
+}
+
+
+// SHADER - WAVES
+vertex_program wavesShaderVS glsl
+{
+	source wavesShaderVS.glsl
+	default_params
+	{
+		param_named_auto modelViewProjMat worldviewproj_matrix
+		//Tiempo de duracion de la onda
+		param_named_auto time sintime_0_2pi 15
+		//origen de la onda
+		param_named centro float4 0.0 0.0 0.0 1.0
+		//Ajusta la amplitud de ambas ondas
+		param_named amplitud1 float 0.3
+		param_named amplitud2 float 0.3
+	}
+}
+fragment_program wavesShaderFS glsl
+{
+	source wavesShaderFS.glsl
+	default_params
+	{ 
+		param_named texturaL int 0
+	}
+}
+material wavesShader
+{
+    technique
+    {
+        pass
+        {
+			lighting off
+
+			vertex_program_ref wavesShaderVS {
+            }
+
+            fragment_program_ref wavesShaderFS {
+            }
+
+            
+            texture_unit {
+				texture Water02.jpg 2d
+            }
+           
+        }
+    }
 }

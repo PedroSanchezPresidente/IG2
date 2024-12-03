@@ -1,8 +1,9 @@
 #version 330 core
 uniform sampler2D texturaL; 
 uniform sampler2D texturaM;  
-uniform float BF;            
+uniform float BF;  // factor de mezcla
 
+//Valorse minimos y maximos de la luz
 uniform float minL;
 uniform float maxL;
 
@@ -19,8 +20,11 @@ void main() {
     vec3 color = mix(colorL, colorM, BF);
 
     float diff = maxL - minL;
+
+    // intensidad de la luz en base al tiempo
     float lf = minL + (diff*((tiempo + 1) / 2));
 
+    //aplicacion del zoom y la iluminacion antes de pasar el color del fragmento 
     color *= zf * lf;
 
     fFragColor = vec4(color, 1.0);

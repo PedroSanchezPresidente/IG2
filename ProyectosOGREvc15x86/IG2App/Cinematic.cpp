@@ -28,11 +28,12 @@ Cinematic::Cinematic(SceneManager* mSM) {
 	moon = new IG2Object(Vector3(0, 0, -10), node->createChildSceneNode(), mSM, "uv_sphere.mesh");
 	moon->setScale({ 0.05, 0.05, 0.05 });
 	moon->setMaterialName("SphereHoles");
+
 	// Creamos suelo
 	floorNode = mSM->getRootSceneNode()->createChildSceneNode("floorC");
-	Ogre::MeshManager::getSingleton().createPlane("FloorC", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Plane(Vector3::UNIT_Y, -5), 100, 40, 100, 80, true, 1, 20, 8, Vector3::UNIT_Z);
+	Ogre::MeshManager::getSingleton().createPlane("FloorC", ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Plane(Vector3::UNIT_Y, -5), 100, 100, 20, 20, true, 1, 10, 4, Vector3::UNIT_Z);
 	Ogre::Entity* plane = mSM->createEntity("FloorC");
-	plane->setMaterialName("FloorMaterial");
+	plane->setMaterialName("wavesShader");
 	floorNode->attachObject(plane);
 
 	// Creamos animaciones de heroe y cabeza
