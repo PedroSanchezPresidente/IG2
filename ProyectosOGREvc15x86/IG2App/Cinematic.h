@@ -60,7 +60,7 @@ private:
 	//Poscion del heroe
 	Vector3 keyframePos = { 0, 0, 0 };
 	Real durStep = duration / 5;
-	Real anim_speed = 1.5;
+	Real anim_speed = 1;
 	Vector3 heroeScale = {1,1,1};
 	Vector3 enemigoScale = { 0.15, 0.15, 0.15 };
 	Ogre::Timer* timer = new Ogre::Timer();
@@ -70,7 +70,7 @@ private:
 	// Bailar - caminar
 	// Sin espadas - con espadas
 	// con espadas - fin cinematica
-	std::vector<int> nextTimer = {(int)durStep * 1000 , (int)durStep * 1000 , (int)(duration - durStep * 2) * 1000};
+	std::vector<int> nextTimer = {(int)durStep * 1000, (int)durStep * 1000, (int)(duration - durStep * 2) * 1000};
 
 	int curr_anim_state = _DANCE_S;
 

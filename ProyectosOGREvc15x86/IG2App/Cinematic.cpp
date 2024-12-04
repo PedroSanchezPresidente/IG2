@@ -85,13 +85,13 @@ void Cinematic::frameRendered(const Ogre::FrameEvent& evt) {
 			}
 		}
 
-		animationStateHeroe->addTime(anim_speed * evt.timeSinceLastEvent);
-		animationStateEnemigo->addTime(anim_speed * evt.timeSinceLastEvent);
+		animationStateHeroe->addTime(anim_speed * evt.timeSinceLastFrame);
+		animationStateEnemigo->addTime(anim_speed * evt.timeSinceLastFrame);
 		if (curr_anim_state == _DANCE_S)
-			heroe->getAnimationState(animsName[_DANCE])->addTime(anim_speed * evt.timeSinceLastEvent);
+			heroe->getAnimationState(animsName[_DANCE])->addTime(anim_speed * evt.timeSinceLastFrame);
 		else if(curr_anim_state == _RUN_HIDE_S || curr_anim_state == _RUN_SHOW_S){
-			heroe->getAnimationState(animsName[_RUN_BASE])->addTime(anim_speed * evt.timeSinceLastEvent);
-			heroe->getAnimationState(animsName[_RUN_TOP])->addTime(anim_speed * evt.timeSinceLastEvent);
+			heroe->getAnimationState(animsName[_RUN_BASE])->addTime(anim_speed * evt.timeSinceLastFrame);
+			heroe->getAnimationState(animsName[_RUN_TOP])->addTime(anim_speed * evt.timeSinceLastFrame);
 		}
 	}
 }
